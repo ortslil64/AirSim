@@ -213,10 +213,19 @@ __pragma(warning(disable : 4239))
             return pimpl_->client.call("simGetSegmentationObjectID", mesh_name).as<int>();
         }
 
-        CollisionInfo RpcLibClientBase::simGetCollisionInfo(const std::string& vehicle_name) const
-        {
-            return pimpl_->client.call("simGetCollisionInfo", vehicle_name).as<RpcLibAdaptorsBase::CollisionInfo>().to();
-        }
+void RpcLibClientBase::simAddDetectionFilterMeshName(const std::string& mesh_name)
+{
+	pimpl_->client.call("simAddDetectionFilterMeshName", mesh_name);
+}
+void RpcLibClientBase::simSetDetectionFilterRadius(const float radius_cm)
+{
+    pimpl_->client.call("simSetDetectionFilterRadius", radius_cm);
+}
+
+CollisionInfo RpcLibClientBase::simGetCollisionInfo(const std::string& vehicle_name) const
+{
+    return pimpl_->client.call("simGetCollisionInfo", vehicle_name).as<RpcLibAdapatorsBase::CollisionInfo>().to();
+}
 
         //sim only
         Pose RpcLibClientBase::simGetVehiclePose(const std::string& vehicle_name) const

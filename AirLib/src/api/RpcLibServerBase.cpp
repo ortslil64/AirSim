@@ -182,11 +182,18 @@ namespace airlib
             return getWorldSimApi()->getSegmentationObjectID(mesh_name);
         });
 
-        pimpl_->server.bind("reset", [&]() -> void {
-            //Exit if already resetting.
-            static bool resetInProgress;
-            if (resetInProgress)
-                return;
+	pimpl_->server.bind("simAddDetectionFilterMeshName", [&](const std::string& mesh_name) -> void {
+		getWorldSimApi()->addDetectionFilterMeshName(mesh_name);
+		});
+	pimpl_->server.bind("simSetDetectionFilterRadius", [&](const float radius_cm) -> void {
+		getWorldSimApi()->setDetectionFilterRadius(radius_cm);
+		});
+    
+    pimpl_->server.bind("reset", [&]() -> void {
+        //Exit if already resetting.
+        static bool resetInProgress;
+        if (resetInProgress)
+            return;
 
             //Reset
             resetInProgress = true;
