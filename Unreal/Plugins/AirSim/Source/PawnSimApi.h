@@ -20,6 +20,7 @@
 #include "common/common_utils/UniqueValueMap.hpp"
 
 #include "PawnEvents.h"
+#include <map>
 
 class PawnSimApi : public msr::airlib::VehicleSimApiBase
 {
@@ -99,6 +100,8 @@ public: //implementation of VehicleSimApiBase
     virtual const msr::airlib::Environment* getGroundTruthEnvironment() const override;
     virtual std::string getRecordFileLine(bool is_header_line) const override;
     virtual void reportState(msr::airlib::StateReporter& reporter) override;
+
+	virtual std::map<std::string, std::vector<int>> getDetections(const std::string& camera_name, ImageCaptureBase::ImageType image_type, const std::string& vehicle_name) const override;
 
 protected: //additional interface for derived class
     virtual void pawnTick(float dt);
