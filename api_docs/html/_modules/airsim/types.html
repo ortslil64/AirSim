@@ -570,6 +570,15 @@
     <span class="n">max_distance</span> <span class="o">=</span> <span class="mf">0.0</span>
     <span class="n">relative_pose</span> <span class="o">=</span> <span class="n">Pose</span><span class="p">()</span></div>
 
+<div class="viewcode-block" id="DetectionInfo"><a class="viewcode-back" href="../../index.html#airsim.types.DetectionInfo">[docs]</a><span class="k">class</span> <span class="nc">DetectionInfo</span><span class="p">(</span><span class="n">MsgpackMixin</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">geoPoint</span> <span class="o">=</span> <span class="n">GeoPoint</span><span class="p">()</span>
+    <span class="n">topLeft_x</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">topLeft_y</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">bottomRight_x</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">bottomRight_y</span> <span class="o">=</span> <span class="mi">0</span></div>
+
+
 <div class="viewcode-block" id="PIDGains"><a class="viewcode-back" href="../../index.html#airsim.types.PIDGains">[docs]</a><span class="k">class</span> <span class="nc">PIDGains</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Struct to store values of PID gains. Used to transmit controller gain values while instantiating</span>

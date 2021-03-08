@@ -423,7 +423,14 @@
 <dl class="py method">
 <dt id="airsim.client.VehicleClient.simAddDetectionFilterMeshName">
 <code class="sig-name descname"><span class="pre">simAddDetectionFilterMeshName</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mesh_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/airsim/client.html#VehicleClient.simAddDetectionFilterMeshName"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#airsim.client.VehicleClient.simAddDetectionFilterMeshName" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Add mesh name to detect in wild card format</p>
+<p>For example: simAddDetectionFilterMeshName(“Car_*”) will detect all instance named “Car_*”</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>mesh_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – mesh name in wild card format</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt id="airsim.client.VehicleClient.simContinueForFrames">
@@ -544,7 +551,20 @@
 <dl class="py method">
 <dt id="airsim.client.VehicleClient.simGetDetections">
 <code class="sig-name descname"><span class="pre">simGetDetections</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">camera_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vehicle_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/airsim/client.html#VehicleClient.simGetDetections"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#airsim.client.VehicleClient.simGetDetections" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Get current detections</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>camera_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Name of the camera, for backwards compatibility, ID numbers such as 0,1,etc. can also be used</p></li>
+<li><p><strong>image_type</strong> (<a class="reference internal" href="#airsim.types.ImageType" title="airsim.types.ImageType"><em>ImageType</em></a>) – Type of image required</p></li>
+<li><p><strong>vehicle_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><em>optional</em>) – Vehicle which the camera is associated with</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>DetectionInfo array</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt id="airsim.client.VehicleClient.simGetDistortionParams">
@@ -1001,7 +1021,13 @@ Allows the user to create bespoke APIs very easily, by adding a custom event to 
 <dl class="py method">
 <dt id="airsim.client.VehicleClient.simSetDetectionFilterRadius">
 <code class="sig-name descname"><span class="pre">simSetDetectionFilterRadius</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">radius_cm</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/airsim/client.html#VehicleClient.simSetDetectionFilterRadius"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#airsim.client.VehicleClient.simSetDetectionFilterRadius" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Set detection radius for all cameras</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>radius_cm</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Radius in [cm]</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt id="airsim.client.VehicleClient.simSetDistortionParam">
@@ -2247,6 +2273,41 @@ This function should only be called if the default position control PID gains ne
 <dl class="py attribute">
 <dt id="airsim.types.CollisionInfo.time_stamp">
 <code class="sig-name descname"><span class="pre">time_stamp</span></code><em class="property"> <span class="pre">=</span> <span class="pre">0.0</span></em><a class="headerlink" href="#airsim.types.CollisionInfo.time_stamp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="airsim.types.DetectionInfo">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">airsim.types.</span></code><code class="sig-name descname"><span class="pre">DetectionInfo</span></code><a class="reference internal" href="_modules/airsim/types.html#DetectionInfo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#airsim.types.DetectionInfo" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py attribute">
+<dt id="airsim.types.DetectionInfo.bottomRight_x">
+<code class="sig-name descname"><span class="pre">bottomRight_x</span></code><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#airsim.types.DetectionInfo.bottomRight_x" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="airsim.types.DetectionInfo.bottomRight_y">
+<code class="sig-name descname"><span class="pre">bottomRight_y</span></code><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#airsim.types.DetectionInfo.bottomRight_y" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="airsim.types.DetectionInfo.geoPoint">
+<code class="sig-name descname"><span class="pre">geoPoint</span></code><em class="property"> <span class="pre">=</span> <span class="pre">&lt;GeoPoint&gt;</span> <span class="pre">{</span>&#160;&#160; <span class="pre">}</span></em><a class="headerlink" href="#airsim.types.DetectionInfo.geoPoint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="airsim.types.DetectionInfo.name">
+<code class="sig-name descname"><span class="pre">name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">''</span></em><a class="headerlink" href="#airsim.types.DetectionInfo.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="airsim.types.DetectionInfo.topLeft_x">
+<code class="sig-name descname"><span class="pre">topLeft_x</span></code><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#airsim.types.DetectionInfo.topLeft_x" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="airsim.types.DetectionInfo.topLeft_y">
+<code class="sig-name descname"><span class="pre">topLeft_y</span></code><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#airsim.types.DetectionInfo.topLeft_y" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
