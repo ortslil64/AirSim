@@ -223,13 +223,13 @@ void RpcLibClientBase::simSetDetectionFilterRadius(const float radius_cm)
 }
 vector<DetectionInfo> RpcLibClientBase::simGetDetections(const std::string& camera_name, ImageCaptureBase::ImageType image_type, const std::string& vehicle_name)
 {
-    const auto& result = pimpl_->client.call("simGetDetections", camera_name, image_type, vehicle_name).as<vector<RpcLibAdapatorsBase::DetectionInfo>>();
-	return RpcLibAdapatorsBase::DetectionInfo::to(result);
+    const auto& result = pimpl_->client.call("simGetDetections", camera_name, image_type, vehicle_name).as<vector<RpcLibAdaptorsBase::DetectionInfo>>();
+    return RpcLibAdaptorsBase::DetectionInfo::to(result);
 }
 
 CollisionInfo RpcLibClientBase::simGetCollisionInfo(const std::string& vehicle_name) const
 {
-    return pimpl_->client.call("simGetCollisionInfo", vehicle_name).as<RpcLibAdapatorsBase::CollisionInfo>().to();
+    return pimpl_->client.call("simGetCollisionInfo", vehicle_name).as<RpcLibAdaptorsBase::CollisionInfo>().to();
 }
 
         //sim only
