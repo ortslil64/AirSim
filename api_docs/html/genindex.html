@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Index &mdash; airsim 1.2.8 documentation</title>
+  <title>Index &mdash; airsim 1.5.0 documentation</title>
   
 
   
@@ -62,6 +62,10 @@
 
           
             
+            
+              <div class="version">
+                1.5.0
+              </div>
             
           
 
@@ -231,11 +235,15 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="index.html#airsim.types.BarometerData">BarometerData (class in airsim.types)</a>
 </li>
-      <li><a href="index.html#airsim.types.DetectionInfo.bottomRight_x">bottomRight_x (airsim.types.DetectionInfo attribute)</a>
+      <li><a href="index.html#airsim.types.DetectionInfo.box2D">box2D (airsim.types.DetectionInfo attribute)</a>
+</li>
+      <li><a href="index.html#airsim.types.Box2D">Box2D (class in airsim.types)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="index.html#airsim.types.DetectionInfo.bottomRight_y">bottomRight_y (airsim.types.DetectionInfo attribute)</a>
+      <li><a href="index.html#airsim.types.DetectionInfo.box3D">box3D (airsim.types.DetectionInfo attribute)</a>
+</li>
+      <li><a href="index.html#airsim.types.Box3D">Box3D (class in airsim.types)</a>
 </li>
       <li><a href="index.html#airsim.types.CarControls.brake">brake (airsim.types.CarControls attribute)</a>
 </li>
@@ -379,14 +387,14 @@
 </li>
       <li><a href="index.html#airsim.types.CarControls.gear_immediate">gear_immediate (airsim.types.CarControls attribute)</a>
 </li>
-      <li><a href="index.html#airsim.types.EnvironmentState.geo_point">geo_point (airsim.types.EnvironmentState attribute)</a>
+      <li><a href="index.html#airsim.types.DetectionInfo.geo_point">geo_point (airsim.types.DetectionInfo attribute)</a>
 
       <ul>
+        <li><a href="index.html#airsim.types.EnvironmentState.geo_point">(airsim.types.EnvironmentState attribute)</a>
+</li>
         <li><a href="index.html#airsim.types.GnssReport.geo_point">(airsim.types.GnssReport attribute)</a>
 </li>
       </ul></li>
-      <li><a href="index.html#airsim.types.DetectionInfo.geoPoint">geoPoint (airsim.types.DetectionInfo attribute)</a>
-</li>
       <li><a href="index.html#airsim.types.GeoPoint">GeoPoint (class in airsim.types)</a>
 </li>
       <li><a href="index.html#airsim.types.Quaternionr.get_length">get_length() (airsim.types.Quaternionr method)</a>
@@ -563,10 +571,10 @@
 </li>
       <li><a href="index.html#airsim.types.GeoPoint.latitude">latitude (airsim.types.GeoPoint attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="index.html#airsim.types.LidarData">LidarData (class in airsim.types)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="index.html#airsim.types.ImuData.linear_acceleration">linear_acceleration (airsim.types.ImuData attribute)</a>
 
       <ul>
@@ -576,6 +584,8 @@
       <li><a href="index.html#airsim.types.KinematicsState.linear_velocity">linear_velocity (airsim.types.KinematicsState attribute)</a>
 </li>
       <li><a href="index.html#airsim.utils.list_to_2d_float_array">list_to_2d_float_array() (in module airsim.utils)</a>
+</li>
+      <li><a href="index.html#airsim.client.VehicleClient.listVehicles">listVehicles() (airsim.client.VehicleClient method)</a>
 </li>
       <li><a href="index.html#airsim.types.GeoPoint.longitude">longitude (airsim.types.GeoPoint attribute)</a>
 </li>
@@ -597,6 +607,12 @@
 </li>
       <li><a href="index.html#airsim.types.ProjectionMatrix.matrix">matrix (airsim.types.ProjectionMatrix attribute)</a>
 </li>
+      <li><a href="index.html#airsim.types.Box2D.max">max (airsim.types.Box2D attribute)</a>
+
+      <ul>
+        <li><a href="index.html#airsim.types.Box3D.max">(airsim.types.Box3D attribute)</a>
+</li>
+      </ul></li>
       <li><a href="index.html#airsim.types.DistanceSensorData.max_distance">max_distance (airsim.types.DistanceSensorData attribute)</a>
 </li>
       <li><a href="index.html#airsim.types.DrivetrainType.MaxDegreeOfFreedom">MaxDegreeOfFreedom (airsim.types.DrivetrainType attribute)</a>
@@ -607,6 +623,12 @@
 </li>
       <li><a href="index.html#airsim.types.ImageResponse.message">message (airsim.types.ImageResponse attribute)</a>
 </li>
+      <li><a href="index.html#airsim.types.Box2D.min">min (airsim.types.Box2D attribute)</a>
+
+      <ul>
+        <li><a href="index.html#airsim.types.Box3D.min">(airsim.types.Box3D attribute)</a>
+</li>
+      </ul></li>
       <li><a href="index.html#airsim.types.DistanceSensorData.min_distance">min_distance (airsim.types.DistanceSensorData attribute)</a>
 </li>
       <li>
@@ -620,12 +642,12 @@
       </ul></li>
       <li><a href="index.html#airsim.client.MultirotorClient.moveByAngleRatesThrottleAsync">moveByAngleRatesThrottleAsync() (airsim.client.MultirotorClient method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="index.html#airsim.client.MultirotorClient.moveByAngleRatesZAsync">moveByAngleRatesZAsync() (airsim.client.MultirotorClient method)</a>
 </li>
       <li><a href="index.html#airsim.client.MultirotorClient.moveByAngleThrottleAsync">moveByAngleThrottleAsync() (airsim.client.MultirotorClient method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="index.html#airsim.client.MultirotorClient.moveByAngleZAsync">moveByAngleZAsync() (airsim.client.MultirotorClient method)</a>
 </li>
       <li><a href="index.html#airsim.client.MultirotorClient.moveByManualAsync">moveByManualAsync() (airsim.client.MultirotorClient method)</a>
@@ -796,16 +818,20 @@
 </li>
       <li><a href="index.html#airsim.types.MultirotorState.ready_message">ready_message (airsim.types.MultirotorState attribute)</a>
 </li>
-      <li><a href="index.html#airsim.types.DistanceSensorData.relative_pose">relative_pose (airsim.types.DistanceSensorData attribute)</a>
+      <li><a href="index.html#airsim.types.DetectionInfo.relative_pose">relative_pose (airsim.types.DetectionInfo attribute)</a>
+
+      <ul>
+        <li><a href="index.html#airsim.types.DistanceSensorData.relative_pose">(airsim.types.DistanceSensorData attribute)</a>
 </li>
+      </ul></li>
       <li><a href="index.html#airsim.client.VehicleClient.reset">reset() (airsim.client.VehicleClient method)</a>
 </li>
       <li><a href="index.html#airsim.types.WeatherParameter.RoadLeaf">RoadLeaf (airsim.types.WeatherParameter attribute)</a>
 </li>
-      <li><a href="index.html#airsim.types.WeatherParameter.RoadSnow">RoadSnow (airsim.types.WeatherParameter attribute)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="index.html#airsim.types.WeatherParameter.RoadSnow">RoadSnow (airsim.types.WeatherParameter attribute)</a>
+</li>
       <li><a href="index.html#airsim.types.WeatherParameter.Roadwetness">Roadwetness (airsim.types.WeatherParameter attribute)</a>
 </li>
       <li><a href="index.html#airsim.types.RCData.roll">roll (airsim.types.RCData attribute)</a>
@@ -858,6 +884,8 @@
 </li>
       <li><a href="index.html#airsim.client.VehicleClient.simAddVehicle">simAddVehicle() (airsim.client.VehicleClient method)</a>
 </li>
+      <li><a href="index.html#airsim.client.VehicleClient.simClearDetectionMeshNames">simClearDetectionMeshNames() (airsim.client.VehicleClient method)</a>
+</li>
       <li><a href="index.html#airsim.client.VehicleClient.simContinueForFrames">simContinueForFrames() (airsim.client.VehicleClient method)</a>
 </li>
       <li><a href="index.html#airsim.client.VehicleClient.simContinueForTime">simContinueForTime() (airsim.client.VehicleClient method)</a>
@@ -898,9 +926,13 @@
 </li>
       <li><a href="index.html#airsim.client.VehicleClient.simGetVehiclePose">simGetVehiclePose() (airsim.client.VehicleClient method)</a>
 </li>
+      <li><a href="index.html#airsim.client.VehicleClient.simGetWorldExtents">simGetWorldExtents() (airsim.client.VehicleClient method)</a>
+</li>
       <li><a href="index.html#airsim.client.VehicleClient.simIsPause">simIsPause() (airsim.client.VehicleClient method)</a>
 </li>
       <li><a href="index.html#airsim.client.VehicleClient.simListSceneObjects">simListSceneObjects() (airsim.client.VehicleClient method)</a>
+</li>
+      <li><a href="index.html#airsim.client.VehicleClient.simLoadLevel">simLoadLevel() (airsim.client.VehicleClient method)</a>
 </li>
       <li><a href="index.html#airsim.client.VehicleClient.simPause">simPause() (airsim.client.VehicleClient method)</a>
 </li>
@@ -955,6 +987,10 @@
       <li><a href="index.html#airsim.client.VehicleClient.simSpawnObject">simSpawnObject() (airsim.client.VehicleClient method)</a>
 </li>
       <li><a href="index.html#airsim.client.VehicleClient.simSwapTextures">simSwapTextures() (airsim.client.VehicleClient method)</a>
+</li>
+      <li><a href="index.html#airsim.client.VehicleClient.simTestLineOfSightBetweenPoints">simTestLineOfSightBetweenPoints() (airsim.client.VehicleClient method)</a>
+</li>
+      <li><a href="index.html#airsim.client.VehicleClient.simTestLineOfSightToPoint">simTestLineOfSightToPoint() (airsim.client.VehicleClient method)</a>
 </li>
       <li><a href="index.html#airsim.types.WeatherParameter.Snow">Snow (airsim.types.WeatherParameter attribute)</a>
 </li>
@@ -1068,16 +1104,14 @@
 </li>
       <li><a href="index.html#airsim.utils.to_str">to_str() (in module airsim.utils)</a>
 </li>
-      <li><a href="index.html#airsim.types.DetectionInfo.topLeft_x">topLeft_x (airsim.types.DetectionInfo attribute)</a>
-</li>
-      <li><a href="index.html#airsim.types.DetectionInfo.topLeft_y">topLeft_y (airsim.types.DetectionInfo attribute)</a>
-</li>
   </ul></td>
 </tr></table>
 
 <h2 id="V">V</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="index.html#airsim.types.Vector2r">Vector2r (class in airsim.types)</a>
+</li>
       <li><a href="index.html#airsim.types.Vector3r">Vector3r (class in airsim.types)</a>
 </li>
       <li><a href="index.html#airsim.client.VehicleClient">VehicleClient (class in airsim.client)</a>
@@ -1099,8 +1133,6 @@
       <li><a href="index.html#airsim.types.Quaternionr.w_val">w_val (airsim.types.Quaternionr attribute)</a>
 </li>
       <li><a href="index.html#airsim.utils.wait_key">wait_key() (in module airsim.utils)</a>
-</li>
-      <li><a href="index.html#airsim.client.VehicleClient.waitOnLastTask">waitOnLastTask() (airsim.client.VehicleClient method)</a>
 </li>
       <li><a href="index.html#airsim.types.WeatherParameter">WeatherParameter (class in airsim.types)</a>
 </li>
@@ -1131,6 +1163,8 @@
       <li><a href="index.html#airsim.types.Quaternionr.x_val">x_val (airsim.types.Quaternionr attribute)</a>
 
       <ul>
+        <li><a href="index.html#airsim.types.Vector2r.x_val">(airsim.types.Vector2r attribute)</a>
+</li>
         <li><a href="index.html#airsim.types.Vector3r.x_val">(airsim.types.Vector3r attribute)</a>
 </li>
       </ul></li>
@@ -1149,6 +1183,8 @@
       <li><a href="index.html#airsim.types.Quaternionr.y_val">y_val (airsim.types.Quaternionr attribute)</a>
 
       <ul>
+        <li><a href="index.html#airsim.types.Vector2r.y_val">(airsim.types.Vector2r attribute)</a>
+</li>
         <li><a href="index.html#airsim.types.Vector3r.y_val">(airsim.types.Vector3r attribute)</a>
 </li>
       </ul></li>
