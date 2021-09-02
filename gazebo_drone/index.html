@@ -159,6 +159,8 @@
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../adding_new_apis/">Adding new APIs</a>
                     </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../modify_recording_data/">Modifying Recording Data</a>
+                    </li>
                     <li class="toctree-l1"><a class="reference internal" href="../coding_guidelines/">Coding Guidelines</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../flight_controller/">Flight Controller</a>
@@ -341,7 +343,7 @@ You may want to change the visual model of the AirSim drone, for that you can fo
 <p>Execute this from your AirSim root folder:<br />
 <pre class="highlight"><code>cd GazeboDrone
 mkdir build &amp;&amp; cd build
-cmake ..
+cmake -DCMAKE_C_COMPILER=gcc-8 -DCMAKE_CXX_COMPILER=g++-8 ..
 make</code></pre></p>
 <h2 id="run">Run<a class="headerlink" href="#run" title="Permanent link">#</a></h2>
 <p>First run the AirSim simulator and your Gazebo model and then execute this from your AirSim root folder:</p>
