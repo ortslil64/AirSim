@@ -12,10 +12,17 @@
 #include <vector>
 #include "common/common_utils/Utils.hpp"
 #include "common/ClockFactory.hpp"
+//#include "../OWIEnhancedVehicleMovement/WheeledVehicleMovementComponentNW.h"
+#include <OWIEnhancedVehicleMovement/Public/OWIWheeledVehicleMovemenCompNW.h>
 
 #define LOCTEXT_NAMESPACE "VehiclePawn"
 
-ACarPawn::ACarPawn()
+ACarPawn::ACarPawn(const FObjectInitializer& ObjectInitializer)
+    : Super(
+          ObjectInitializer.SetDefaultSubobjectClass<
+              UWheeledVehicleMovementComponentNW>(
+              VehicleMovementComponentName))
+
 {
     static ConstructorHelpers::FClassFinder<APIPCamera> pip_camera_class(TEXT("Blueprint'/AirSim/Blueprints/BP_PIPCamera'"));
     pip_camera_class_ = pip_camera_class.Succeeded() ? pip_camera_class.Class : nullptr;
@@ -85,6 +92,11 @@ ACarPawn::ACarPawn()
 
 void ACarPawn::setupVehicleMovementComponent()
 {
+    if (isNwModel) {
+        UWheeledVehicleMovementComponentNW* movement = CastChecked<UWheeledVehicleMovementComponentNW>(getVehicleMovementComponent());
+        return;
+    }
+
     UWheeledVehicleMovementComponent4W* movement = CastChecked<UWheeledVehicleMovementComponent4W>(getVehicleMovementComponent());
     check(movement->WheelSetups.Num() == 4);
 
