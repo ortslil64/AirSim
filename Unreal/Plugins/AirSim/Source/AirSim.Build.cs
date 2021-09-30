@@ -41,6 +41,8 @@ public class AirSim : ModuleRules
     private void SetupCompileMode(CompileMode mode, ReadOnlyTargetRules Target)
     {
         LoadAirSimDependency(Target, "MavLinkCom", "MavLinkCom");
+        LoadAirSimDependency(Target, "ControlCore", "ControlCore", "ControlCore");
+        LoadAirSimDependency(Target, "MotionCore", "MotionCore", "MotionCore");
 
         switch (mode)
         {
@@ -78,7 +80,7 @@ public class AirSim : ModuleRules
 
         bEnableExceptions = true;
 
-        PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "ImageWrapper", "RenderCore", "RHI", "AssetRegistry", "PhysicsCore", "PhysXVehicles", "PhysXVehicleLib", "PhysX", "APEX", "Landscape", "OWIEnhancedVehicleMovement" });
+        PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "ImageWrapper", "RenderCore", "RHI", "AssetRegistry", "PhysicsCore", "PhysXVehicles", "PhysXVehicleLib", "PhysX", "APEX", "Landscape", "Projects", "OWIEnhancedVehicleMovement" });
         PrivateDependencyModuleNames.AddRange(new string[] { "UMG", "Slate", "SlateCore" });
 
         //suppress VC++ proprietary warnings
@@ -88,6 +90,8 @@ public class AirSim : ModuleRules
 
         PublicIncludePaths.Add(Path.Combine(AirLibPath, "include"));
         PublicIncludePaths.Add(Path.Combine(AirLibPath, "deps", "eigen3"));
+        PublicIncludePaths.Add(Path.Combine(AirLibPath, "deps", "ControlCore", "include"));
+        PublicIncludePaths.Add(Path.Combine(AirLibPath, "deps", "MotionCore", "include"));
         AddOSLibDependencies(Target);
 
         SetupCompileMode(CompileMode.HeaderOnlyWithRpc, Target);
@@ -124,13 +128,13 @@ public class AirSim : ModuleRules
         //else skip
     }
 
-    private bool LoadAirSimDependency(ReadOnlyTargetRules Target, string LibName, string LibFileName)
+    private bool LoadAirSimDependency(ReadOnlyTargetRules Target, string LibName, string LibFileName, string DllFileName = null)
     {
         string LibrariesPath = Path.Combine(AirLibPath, "deps", LibName, "lib");
-        return AddLibDependency(LibName, LibrariesPath, LibFileName, Target, true);
+        return AddLibDependency(LibName, LibrariesPath, LibFileName, Target, true, DllFileName);
     }
 
-    private bool AddLibDependency(string LibName, string LibPath, string LibFileName, ReadOnlyTargetRules Target, bool IsAddLibInclude)
+    private bool AddLibDependency(string LibName, string LibPath, string LibFileName, ReadOnlyTargetRules Target, bool IsAddLibInclude, string DllFileName = null)
     {
         string PlatformString = (Target.Platform == UnrealTargetPlatform.Win64 || Target.Platform == UnrealTargetPlatform.Mac) ? "x64" : "x86";
         string ConfigurationString = (Target.Configuration == UnrealTargetConfiguration.Debug) ? "Debug" : "Release";
@@ -142,6 +146,13 @@ public class AirSim : ModuleRules
             isLibrarySupported = true;
 
             PublicAdditionalLibraries.Add(Path.Combine(LibPath, PlatformString, ConfigurationString, LibFileName + ".lib"));
+
+            if (DllFileName != null)
+            {
+                PublicDelayLoadDLLs.Add(DllFileName + ".dll");
+             //   RuntimeDependencies.Add(Path.Combine(LibPath, PlatformString, ConfigurationString, DllFileName + ".dll"));
+            }
+
         } else if (Target.Platform == UnrealTargetPlatform.Linux || Target.Platform == UnrealTargetPlatform.Mac) {
             isLibrarySupported = true;
             PublicAdditionalLibraries.Add(Path.Combine(LibPath, "lib" + LibFileName + ".a"));
@@ -151,6 +162,7 @@ public class AirSim : ModuleRules
         {
             // Include path
             PublicIncludePaths.Add(Path.Combine(AirLibPath, "deps", LibName, "include"));
+            PublicIncludePaths.Add(Path.Combine(AirLibPath, "deps", LibName, "include", LibName));
         }
         PublicDefinitions.Add(string.Format("WITH_" + LibName.ToUpper() + "_BINDING={0}", isLibrarySupported ? 1 : 0));
 

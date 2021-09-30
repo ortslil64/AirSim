@@ -3,6 +3,8 @@
 #include "UnrealSensors/UnrealSensorFactory.h"
 #include "CarPawnApi.h"
 #include <exception>
+#include "ProbotPawn.h"
+#include "ProbotPawnApi.h"
 
 using namespace msr::airlib;
 
@@ -23,7 +25,12 @@ void CarPawnSimApi::initialize()
                                             sensor_factory,
                                             *getGroundTruthKinematics(),
                                             *getGroundTruthEnvironment());
-    pawn_api_ = std::unique_ptr<CarPawnApi>(new CarPawnApi(static_cast<ACarPawn*>(getPawn()), getGroundTruthKinematics(), vehicle_api_.get()));
+    if (pawn->IsA(AProbotPawn::StaticClass())) {
+        pawn_api_ = std::unique_ptr<ProbotPawnApi>(new ProbotPawnApi(static_cast<AProbotPawn*>(getPawn()), getGroundTruthKinematics(), vehicle_api_.get()));
+    }
+    else {
+        pawn_api_ = std::unique_ptr<CarPawnApi>(new CarPawnApi(static_cast<ACarPawn*>(getPawn()), getGroundTruthKinematics(), vehicle_api_.get()));
+    }
 
     //TODO: should do reset() here?
     joystick_controls_ = msr::airlib::CarApiBase::CarControls();

@@ -25,11 +25,6 @@
 		{
 			"Name": "OculusVR",
 			"Enabled": false
-		},
-		{
-			"Name": "OWIEnhancedVehicleMovement",
-			"Enabled": true,
-			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/content/22f5211ad3744d948352de8b52e6fc8a"
 		}
 	]
 }
