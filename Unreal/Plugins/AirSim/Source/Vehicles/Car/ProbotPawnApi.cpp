@@ -10,26 +10,18 @@ ProbotPawnApi::ProbotPawnApi(ACarPawn* pawn, const msr::airlib::Kinematics::Stat
     : CarPawnApi(pawn,pawn_kinematics,vehicle_api)
 {
     movement_ = pawn->GetVehicleMovement();
-  //  pawn_ = dynamic_cast<AProbotPawn*>(pawn);
     pawn_ = static_cast<AProbotPawn*>(pawn);
 }
 
 void ProbotPawnApi::updateMovement(const msr::airlib::CarApiBase::CarControls& controls)
 {
     last_controls_ = controls;
+
     MotionControlOutput controlOutput;
-/*
-    controlOutput.validFields = static_cast<EPossibleCommands>(EPC_MOTOR_OMEGA_L | EPC_MOTOR_OMEGA_R);
-    controlOutput.motorOmegaCommandL = 0.0;
-    controlOutput.motorOmegaCommandR = 0.5;*/
     controlOutput.validFields = static_cast<EPossibleCommands>(EPC_STEERING | EPC_THROTTLE);
-   
     controlOutput.throttleCommand = FGenericPlatformMath::Fmod(controls.throttle * 100, 60);
     controlOutput.steeringCommand = FGenericPlatformMath::Fmod(-controls.steering * 2 * 100, 60);
     pawn_->m_pMotionModel->SetControlCommands(controlOutput);
-    //     pawn_->m_pMotionModel->SetGasCommand(controls.throttle * 100);
-//     pawn_->m_pMotionModel->SetBrakeCommand(controls.brake * 100);
-//     pawn_->m_pMotionModel->SetSteeringCommand(controls.steering * 100);
     
 /*
     if (!controls.is_manual_gear && movement_->GetTargetGear() < 0)
@@ -46,7 +38,7 @@ void ProbotPawnApi::updateMovement(const msr::airlib::CarApiBase::CarControls& c
 
 msr::airlib::CarApiBase::CarState ProbotPawnApi::getCarState() const
 {
-//     msr::airlib::CarApiBase::CarState state(
+        //     msr::airlib::CarApiBase::CarState state(
 //         movement_->GetForwardSpeed() / 100, //cm/s -> m/s
 //         movement_->GetCurrentGear(),
 //         movement_->GetEngineRotationSpeed(),

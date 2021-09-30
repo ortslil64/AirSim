@@ -13,15 +13,12 @@ class ProbotPawnApi : public CarPawnApi
 public:
     typedef msr::airlib::ImageCaptureBase ImageCaptureBase;
 
-   ProbotPawnApi(ACarPawn* pawn, const msr::airlib::Kinematics::State* pawn_kinematics,
+    ProbotPawnApi(ACarPawn* pawn, const msr::airlib::Kinematics::State* pawn_kinematics,
                   msr::airlib::CarApiBase* vehicle_api);
 
     virtual void updateMovement(const msr::airlib::CarApiBase::CarControls& controls) override;
 
     virtual msr::airlib::CarApiBase::CarState getCarState() const override;
-
- //   virtual void reset() override;
- //   virtual void update() override;
 
     virtual ~ProbotPawnApi();
 
