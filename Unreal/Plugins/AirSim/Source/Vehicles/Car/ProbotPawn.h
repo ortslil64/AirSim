@@ -64,10 +64,6 @@ public:
     virtual void OnDataUpdate(double timeSeconds) override {}
     virtual double GetTimeSeconds() override { return 0; }
 
-private:
-    void DoPhysics(float DeltaTime);
-
-public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     UUnrealDTMSensor* DTMSensor;
 
@@ -75,6 +71,9 @@ public:
     TArray<UStaticMeshComponent*> PlatformComponents;
 
     ITnVehicleMotionModel* m_pMotionModel;
+
+private:
+    void DoPhysics(float DeltaTime);
 
 private:
     float VehicleSpeed;
