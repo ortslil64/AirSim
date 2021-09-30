@@ -1,4 +1,5 @@
 #include "ProbotPawn.h"
+
 #include <Interfaces/IPluginManager.h>
 
 AProbotPawn::AProbotPawn(const FObjectInitializer& ObjectInitializer)
@@ -50,7 +51,7 @@ void AProbotPawn::EndPlay(const EEndPlayReason::Type EndPlayReason)
 
 void AProbotPawn::DoPhysics(float DeltaTime)
 {
-    DeltaTime = __min(DeltaTime, 0.05);
+    DeltaTime = FMath::Min(DeltaTime, 0.05f);
     m_pMotionModel->Update(DeltaTime * SlowMoFactor);
     bool ret = m_pMotionModel->IsCollisionDetected();
 }
@@ -101,22 +102,18 @@ void AProbotPawn::OnUpdate(ITnPhysicalItem** pITnPhysicalItemsArray, int numItem
             const char* tag = pITnPhysicalItem->GetTag();
             if (eType == ITnPhysicalItem::EPIT_BODY) {
                 if (FString(tag).Equals("CHASSIS")) {
+                    // We need to update location and rotation of the root CarPawn (AirSim) component
+                    // to make AirSim features work in this platform.
+                    // This is a workaround to "attach" the root to the chassis, bc inherited component can't be moved.
                     GetRootComponent()->SetWorldLocationAndRotation(Location, Rotation);
                 }
                 pSaticMesh->SetWorldLocation(Location);
                 pSaticMesh->SetWorldRotation(Rotation);
             }
             else {
+                // Handle the platform components which need to have relative transform, instead world transform
                 pSaticMesh->SetRelativeLocation(Location);
                 pSaticMesh->SetRelativeRotation(Rotation);
-            }
-
-            if (eType == ITnPhysicalItem::EPIT_SPRING) {
-                void* t = (void*)pITnPhysicalItem;
-                ITnSpringPhysicalItem* pSpringItem = (ITnSpringPhysicalItem*)t;
-                //ITnSpringPhysicalItem* pSpringItem = dynamic_cast<ITnSpringPhysicalItem*>(pITnPhysicalItem);
-                STnVector3D scale = pSpringItem->GetScale();
-                pSaticMesh->SetWorldScale3D(FVector(scale.x, scale.y, scale.z));
             }
         }
     }
