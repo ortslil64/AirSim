@@ -49,47 +49,4 @@ msr::airlib::CarApiBase::CarState ProbotPawnApi::getCarState() const
     return msr::airlib::CarApiBase::CarState();
 }
 
-/*
-void ProbotPawnApi::reset()
-{
-    vehicle_api_->reset();
-
-    last_controls_ = msr::airlib::CarApiBase::CarControls();
-    auto phys_comps = UAirBlueprintLib::getPhysicsComponents(pawn_);
-    UAirBlueprintLib::RunCommandOnGameThread([this, &phys_comps]() {
-        for (auto* phys_comp : phys_comps) {
-            phys_comp->SetPhysicsAngularVelocityInDegrees(FVector::ZeroVector);
-            phys_comp->SetPhysicsLinearVelocity(FVector::ZeroVector);
-            phys_comp->SetSimulatePhysics(false);
-        }
-        movement_->ResetMoveState();
-        movement_->SetActive(false);
-        movement_->SetActive(true, true);
-        vehicle_api_->setCarControls(msr::airlib::CarApiBase::CarControls());
-        updateMovement(msr::airlib::CarApiBase::CarControls());
-
-        auto pv = movement_->PVehicle;
-        if (pv) {
-            pv->mWheelsDynData.setToRestState();
-        }
-        auto pvd = movement_->PVehicleDrive;
-        if (pvd) {
-            pvd->mDriveDynData.setToRestState();
-        }
-    },
-                                             true);
-
-    UAirBlueprintLib::RunCommandOnGameThread([this, &phys_comps]() {
-        for (auto* phys_comp : phys_comps)
-            phys_comp->SetSimulatePhysics(true);
-    },
-                                             true);
-}
-
-void ProbotPawnApi::update()
-{
-    vehicle_api_->updateCarState(getCarState());
-    vehicle_api_->update();
-}*/
-
 ProbotPawnApi::~ProbotPawnApi() = default;
