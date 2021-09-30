@@ -52,7 +52,7 @@ public:
         return keyboard_controls_;
     }
 
-private:
+protected:
     void updateHUDStrings();
     void setupVehicleMovementComponent();
     void updateInCarHUD();
@@ -67,12 +67,15 @@ private:
     void onReversePressed();
     void onReverseReleased();
 
+protected:
+    PawnEvents pawn_events_;
+
 private:
     typedef msr::airlib::AirSimSettings AirSimSettings;
 
     UClass* pip_camera_class_;
 
-    PawnEvents pawn_events_;
+    //PawnEvents pawn_events_;
 
     bool is_low_friction_;
     UPhysicalMaterial* slippery_mat_;

@@ -10,22 +10,24 @@ class CarPawnApi
 public:
     typedef msr::airlib::ImageCaptureBase ImageCaptureBase;
 
-    CarPawnApi(ACarPawn* pawn, const msr::airlib::Kinematics::State* pawn_kinematics,
+   CarPawnApi(ACarPawn* pawn, const msr::airlib::Kinematics::State* pawn_kinematics,
                msr::airlib::CarApiBase* vehicle_api);
 
-    void updateMovement(const msr::airlib::CarApiBase::CarControls& controls);
+    virtual void updateMovement(const msr::airlib::CarApiBase::CarControls& controls);
 
-    msr::airlib::CarApiBase::CarState getCarState() const;
+    virtual msr::airlib::CarApiBase::CarState getCarState() const;
 
-    void reset();
-    void update();
+    virtual void reset();
+    virtual void update();
 
     virtual ~CarPawnApi();
 
-private:
-    UWheeledVehicleMovementComponent* movement_;
+protected:
     msr::airlib::CarApiBase::CarControls last_controls_;
     ACarPawn* pawn_;
     const msr::airlib::Kinematics::State* pawn_kinematics_;
     msr::airlib::CarApiBase* vehicle_api_;
+
+private:
+    UWheeledVehicleMovementComponent* movement_;
 };

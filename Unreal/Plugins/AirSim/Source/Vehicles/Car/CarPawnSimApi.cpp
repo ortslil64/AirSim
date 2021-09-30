@@ -3,6 +3,8 @@
 #include "UnrealSensors/UnrealSensorFactory.h"
 #include "CarPawnApi.h"
 #include <exception>
+#include "ProbotPawn.h"
+#include "ProbotPawnApi.h"
 
 using namespace msr::airlib;
 
@@ -28,7 +30,12 @@ void CarPawnSimApi::createVehicleApi(ACarPawn* pawn, const msr::airlib::GeoPoint
     std::shared_ptr<UnrealSensorFactory> sensor_factory = std::make_shared<UnrealSensorFactory>(getPawn(), &getNedTransform());
 
     vehicle_api_ = CarApiFactory::createApi(getVehicleSetting(), sensor_factory, (*getGroundTruthKinematics()), (*getGroundTruthEnvironment()), home_geopoint);
-    pawn_api_ = std::unique_ptr<CarPawnApi>(new CarPawnApi(pawn, getGroundTruthKinematics(), vehicle_api_.get()));
+    if (pawn->IsA(AProbotPawn::StaticClass())) {
+        pawn_api_ = std::unique_ptr<ProbotPawnApi>(new ProbotPawnApi(pawn, getGroundTruthKinematics(), vehicle_api_.get()));
+    }
+    else {
+        pawn_api_ = std::unique_ptr<CarPawnApi>(new CarPawnApi(pawn, getGroundTruthKinematics(), vehicle_api_.get()));
+    }
 }
 
 std::string CarPawnSimApi::getRecordFileLine(bool is_header_line) const

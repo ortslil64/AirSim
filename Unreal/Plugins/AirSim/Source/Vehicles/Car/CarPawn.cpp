@@ -12,7 +12,6 @@
 #include <vector>
 #include "common/common_utils/Utils.hpp"
 #include "common/ClockFactory.hpp"
-//#include "../OWIEnhancedVehicleMovement/WheeledVehicleMovementComponentNW.h"
 #include <OWIEnhancedVehicleMovement/Public/OWIWheeledVehicleMovemenCompNW.h>
 
 #define LOCTEXT_NAMESPACE "VehiclePawn"
