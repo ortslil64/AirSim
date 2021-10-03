@@ -2,6 +2,10 @@
 
 #include <Interfaces/IPluginManager.h>
 
+#include <MotionCore/ITnMotionCore.h>
+#include <MotionCore/ITnPhysicalItem.h>
+#include <MotionCore/ITnVehicleMotionModel.h>
+
 AProbotPawn::AProbotPawn(const FObjectInitializer& ObjectInitializer)
     : Super(ObjectInitializer)
     , m_pMotionModel(nullptr)
@@ -21,15 +25,15 @@ void AProbotPawn::BeginPlay()
 
         FString excelPath = BaseDir + "/Source/AirLib/deps/MotionCore/Probot3DMulti.xls";
 
+/*
         if (FPaths::FileExists(excelPath) == false) {
             excelPath = "C:\\SimulationBins\\Ford350Multi.xls";
-        }
+        }*/
 
         bool isReload = false;
         m_pMotionModel->Generate(TCHAR_TO_ANSI(*excelPath), isReload);
 
         STnVector3D InitPos(GetActorLocation().X, GetActorLocation().Y, GetActorLocation().Z);
-
         m_pMotionModel->Init(InitPos, (double)GetActorLocation().Rotation().Yaw);
     }
 
