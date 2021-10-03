@@ -7,20 +7,17 @@
 
 #include "Windows/AllowWindowsPlatformTypes.h"
 
-#include <STnVector.h>
-#include <MotionCore/ITnMotionQueries.h>
-#include <MotionCore/ITnPhysicalItem.h>
-#include <MotionCore/ITnPhysicalItemBinder.h>
 #include <MotionCore/ITnAppItem.h>
-#include <MotionCore/ITnVehicleMotionModel.h>
-#include <ControlCore/ITnMotionControlPath.h>
-#include <MotionCore/ITnMotionCore.h>
+#include <MotionCore/ITnMotionQueries.h>
+#include <MotionCore/ITnPhysicalItemBinder.h>
 
 #include "Windows/HideWindowsPlatformTypes.h"
 
 #include "ProbotPawn.generated.h"
 
 class UUnrealDTMSensor;
+class ITnPhysicalItem;
+class ITnVehicleMotionModel;
 
 class UnrealAppItem : public ITnAppItem
 {
