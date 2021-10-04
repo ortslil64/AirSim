@@ -25,11 +25,6 @@ void AProbotPawn::BeginPlay()
 
         FString excelPath = BaseDir + "/Source/AirLib/deps/MotionCore/Probot3DMulti.xls";
 
-/*
-        if (FPaths::FileExists(excelPath) == false) {
-            excelPath = "C:\\SimulationBins\\Ford350Multi.xls";
-        }*/
-
         bool isReload = false;
         m_pMotionModel->Generate(TCHAR_TO_ANSI(*excelPath), isReload);
 
@@ -97,7 +92,7 @@ void AProbotPawn::OnUpdate(ITnPhysicalItem** pITnPhysicalItemsArray, int numItem
             STnRotation ItemRotation = pITnPhysicalItem->GetGlobalRotation();
 
             ItemPosition *= 100;
-            FVector Location = FVector(ItemPosition.y, ItemPosition.x, -ItemPosition.z);
+            FVector Location = FVector(ItemPosition.y, ItemPosition.x, ItemPosition.z);
             FRotator Rotation = FRotator(-ItemRotation.fPitch, ItemRotation.fYaw, ItemRotation.fRoll);
 
             ITnPhysicalItem::EPhysicalItemType eType;
