@@ -33,7 +33,11 @@ void UUnrealDTMSensor::BeginPlay()
 
 void UUnrealDTMSensor::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
-    delete m_pHeightMap;
+    if (m_pHeightMap != nullptr)
+    {
+        delete m_pHeightMap;
+        m_pHeightMap = nullptr;
+    }
 }
 
 void UUnrealDTMSensor::InitRenderTarget()
@@ -103,20 +107,11 @@ void UUnrealDTMSensor::TickComponent(float DeltaTime, ELevelTick TickType, FActo
 
     CaptureScene();
 
-    auto fn = [=]() {
-        double start = FPlatformTime::Seconds();
-
-        ReadDepth();
-
-        double end = FPlatformTime::Seconds();
-    };
-
-    // 	ENQUEUE_UNIQUE_RENDER_COMMAND_ONEPARAMETER(
-    // 		FWritePixels,
-    // 		decltype(fn), write_function, fn,
-    // 		{
-    // 			write_function();
-    // 		});
+    ENQUEUE_RENDER_COMMAND(FWritePixels)
+    (
+        [this](FRHICommandListImmediate& RHICmdList) {
+            ReadDepth();
+        });
 }
 
 double UUnrealDTMSensor::GetTerrainHeight(double x, double y)
@@ -160,12 +155,9 @@ double UUnrealDTMSensor::GetTerrainHeight(double x, double y)
         FVector endPos = startPos;
         endPos.Z = -10000;
 
-        const FName TraceTag("myTag");
-        //GetWorld()->DebugDrawTraceTag = TraceTag;
-
         FCollisionQueryParams qParams;
         qParams.TraceTag = TraceTag;
-
+        qParams.AddIgnoredActor(GetOwner());
         bool isHit = GetWorld()->LineTraceSingleByChannel(hitResult, startPos, endPos, ECC_Vehicle, qParams);
 
         if (isHit) {
@@ -177,15 +169,5 @@ double UUnrealDTMSensor::GetTerrainHeight(double x, double y)
         height = pFloatHeightMap[arrayPos];
     }
 
-    // 	if ((m_counter % 507) == 0)
-    // 	{
-    // 		DrawDebugLine(GetWorld(),
-    //FVector(worldX, worldY, height),
-    //FVector(worldX, worldY, height),
-    //FColor::Red,
-    //true, 100, 0, 2);
-    //}
-
-    //float heightInMeters = height / 100.0;
     return height;
 }
