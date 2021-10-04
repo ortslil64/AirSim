@@ -9,16 +9,11 @@ CarPawnApi::CarPawnApi(ACarPawn* pawn, const msr::airlib::Kinematics::State* paw
     : pawn_(pawn), pawn_kinematics_(pawn_kinematics), vehicle_api_(vehicle_api)
 {
     movement_ = pawn->GetVehicleMovement();
-    if (pawn->IsA(AProbotPawn::StaticClass()))
-    {
-     //   pawn_ = dynamic_cast<AProbotPawn*>(pawn);
-    }
 }
 
 void CarPawnApi::updateMovement(const msr::airlib::CarApiBase::CarControls& controls)
 {
     last_controls_ = controls;
-    //pawn_->m_pMotionModel->SetGasCommand(controls.throttle * 100);
 
     if (!controls.is_manual_gear && movement_->GetTargetGear() < 0)
         movement_->SetTargetGear(0, true); //in auto gear we must have gear >= 0
