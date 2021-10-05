@@ -156,7 +156,6 @@ double UUnrealDTMSensor::GetTerrainHeight(double x, double y)
         endPos.Z = -10000;
 
         FCollisionQueryParams qParams;
-        qParams.TraceTag = TraceTag;
         qParams.AddIgnoredActor(GetOwner());
         bool isHit = GetWorld()->LineTraceSingleByChannel(hitResult, startPos, endPos, ECC_Vehicle, qParams);
 
