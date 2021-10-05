@@ -32,6 +32,6 @@ public:
 
     uint8* m_pHeightMap;
 
-    	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
     UTextureRenderTarget2D* RenderTarget = nullptr;
 };

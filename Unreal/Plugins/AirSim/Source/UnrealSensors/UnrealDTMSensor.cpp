@@ -33,8 +33,7 @@ void UUnrealDTMSensor::BeginPlay()
 
 void UUnrealDTMSensor::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
-    if (m_pHeightMap != nullptr)
-    {
+    if (m_pHeightMap != nullptr) {
         delete m_pHeightMap;
         m_pHeightMap = nullptr;
     }

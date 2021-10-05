@@ -52,7 +52,6 @@ void AProbotPawn::DoPhysics(float DeltaTime)
 {
     DeltaTime = FMath::Min(DeltaTime, 0.05f);
     m_pMotionModel->Update(DeltaTime * SlowMoFactor);
-    bool ret = m_pMotionModel->IsCollisionDetected();
 }
 
 void AProbotPawn::Bind(ITnPhysicalItem* pItem)
