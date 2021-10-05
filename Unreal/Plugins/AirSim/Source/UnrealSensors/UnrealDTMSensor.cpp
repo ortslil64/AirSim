@@ -8,7 +8,7 @@
 UUnrealDTMSensor::UUnrealDTMSensor()
     : m_pHeightMap(nullptr)
 {
-    
+
     ConstructorHelpers::FObjectFinder<UMaterial> DTMMaterialRes(TEXT("Material'/AirSim/HUDAssets/DTMSensorMaterial.DTMSensorMaterial'"));
     if (DTMMaterialRes.Object != NULL) {
         DTMSensorMaterial = DTMMaterialRes.Object;
