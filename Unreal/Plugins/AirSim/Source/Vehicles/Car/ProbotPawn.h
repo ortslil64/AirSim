@@ -61,6 +61,7 @@ public:
     virtual void OnDataUpdate(double timeSeconds) override {}
     virtual double GetTimeSeconds() override { return 0; }
 
+public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     UUnrealDTMSensor* DTMSensor;
 
