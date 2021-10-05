@@ -134,8 +134,8 @@ double UUnrealDTMSensor::GetTerrainHeight(double x, double y)
     FVector selfWorldPos = GetComponentLocation();
     FVector topLeft = selfWorldPos - FVector(-m_width / 2, m_height / 2, 0);
 
-    int mapX = abs(x - topLeft.X);
-    int mapY = abs(y - topLeft.Y);
+    int mapX = FMath::Abs(x - topLeft.X);
+    int mapY = FMath::Abs(y - topLeft.Y);
 
     int arrayPos = mapX * m_width + mapY;
 
@@ -149,10 +149,10 @@ double UUnrealDTMSensor::GetTerrainHeight(double x, double y)
         FVector startPos;
         startPos.X = x;
         startPos.Y = y;
-        startPos.Z = 10000;
+        startPos.Z = HALF_WORLD_MAX; 
 
         FVector endPos = startPos;
-        endPos.Z = -10000;
+        endPos.Z = -HALF_WORLD_MAX;
 
         FCollisionQueryParams qParams;
         qParams.AddIgnoredActor(GetOwner());
@@ -163,7 +163,6 @@ double UUnrealDTMSensor::GetTerrainHeight(double x, double y)
         }
     }
     else { // Use GPU
-
         height = pFloatHeightMap[arrayPos];
     }
 
