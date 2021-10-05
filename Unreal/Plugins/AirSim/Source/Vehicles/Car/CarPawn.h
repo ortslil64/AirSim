@@ -114,7 +114,6 @@ private:
     FColor last_gear_display_color_;
     FColor last_gear_display_reverse_color_;
 
-
     /////////
     bool isNwModel = true;
 };
