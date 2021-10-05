@@ -258,9 +258,9 @@ void ASimHUD::setupInputBindings()
     UAirBlueprintLib::BindActionToKey("InputEventToggleSubwindow2", EKeys::Three, this, &ASimHUD::inputEventToggleSubwindow2);
     UAirBlueprintLib::BindActionToKey("InputEventToggleAll", EKeys::Zero, this, &ASimHUD::inputEventToggleAll);
 
-	UAirBlueprintLib::BindActionToKey("InputEventToggleSubwindow0Fullscreen", EKeys::One, this, &ASimHUD::inputEventToggleSubwindow0Fullscreen, false, true);
-	UAirBlueprintLib::BindActionToKey("InputEventToggleSubwindow1Fullscreen", EKeys::Two, this, &ASimHUD::inputEventToggleSubwindow1Fullscreen, false, true);
-	UAirBlueprintLib::BindActionToKey("InputEventToggleSubwindow2Fullscreen", EKeys::Three, this, &ASimHUD::inputEventToggleSubwindow2Fullscreen, false, true);
+    UAirBlueprintLib::BindActionToKey("InputEventToggleSubwindow0Fullscreen", EKeys::One, this, &ASimHUD::inputEventToggleSubwindow0Fullscreen, false, true);
+    UAirBlueprintLib::BindActionToKey("InputEventToggleSubwindow1Fullscreen", EKeys::Two, this, &ASimHUD::inputEventToggleSubwindow1Fullscreen, false, true);
+    UAirBlueprintLib::BindActionToKey("InputEventToggleSubwindow2Fullscreen", EKeys::Three, this, &ASimHUD::inputEventToggleSubwindow2Fullscreen, false, true);
 }
 
 void ASimHUD::initializeSettings()
