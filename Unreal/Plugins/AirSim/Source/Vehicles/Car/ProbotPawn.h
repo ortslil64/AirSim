@@ -30,6 +30,14 @@ public:
     int Index;
 };
 
+UENUM(BlueprintType)
+enum class EModelType : uint8
+{
+    None,
+    Probot,
+    Rook
+};
+
 UCLASS(config = Game)
 class AProbotPawn : public ACarPawn
     , public ITnWheeledVehicleMotionModelListener
@@ -70,7 +78,18 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     TArray<UStaticMeshComponent*> PlatformComponents;
 
-    ITnVehicleMotionModel* m_pMotionModel;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    EModelType ModelType;
+
+    /** Max Throttle [%] */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (ClampMin = 0, ClampMax = 100))
+    float MaxThrottle;
+
+    /** Max Steering [%] */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (ClampMin = 0, ClampMax = 100))
+    float MaxSteering;
+
+    ITnVehicleMotionModel* MotionModel;
 
 private:
     void DoPhysics(float DeltaTime);

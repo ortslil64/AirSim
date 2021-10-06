@@ -8,7 +8,8 @@
 
 AProbotPawn::AProbotPawn(const FObjectInitializer& ObjectInitializer)
     : Super(ObjectInitializer)
-    , m_pMotionModel(nullptr)
+    , ModelType(EModelType::None)
+    , MotionModel(nullptr)
     , VehicleSpeed(2)
     , SlowMoFactor(1)
 {
@@ -18,19 +19,33 @@ void AProbotPawn::BeginPlay()
 {
     Super::BeginPlay();
 
-    if (m_pMotionModel == nullptr) {
-        m_pMotionModel = ITnMotionCore::CreateVehicleMotionModel3D(this, this);
-        m_pMotionModel->SetListender(this);
-        FString BaseDir = IPluginManager::Get().FindPlugin("AirSim")->GetBaseDir();
+    if (MotionModel == nullptr) {
+        MotionModel = ITnMotionCore::CreateVehicleMotionModel3D(this, this);
+        MotionModel->SetListender(this);
 
-        FString excelPath = BaseDir + "/Source/AirLib/deps/MotionCore/Probot3DMulti.xls";
+        FString baseDir = FPaths::Combine(IPluginManager::Get().FindPlugin("AirSim")->GetBaseDir(), TEXT("/Source/AirLib/deps/MotionCore/"));
+        FString configFilename;
 
+        switch (ModelType) {
+        case EModelType::None:
+            UAirBlueprintLib::LogMessageString("Error in Probot pawn: ModelType can't be None", "", LogDebugLevel::Failure);
+            UAirBlueprintLib::ShowMessage(EAppMsgType::Ok, "Error: ModelType can't be None", "Error");
+            break;
+        case EModelType::Probot:
+            configFilename = "Probot3DMulti.xls";
+            break;
+        case EModelType::Rook:
+            configFilename = "Probot6X6.xls";
+            break;
+        }
+
+        FString configFilePath = FPaths::Combine(baseDir, configFilename);
         bool isReload = false;
-        m_pMotionModel->Generate(TCHAR_TO_ANSI(*excelPath), isReload);
+        MotionModel->Generate(TCHAR_TO_ANSI(*configFilePath), isReload);
 
         InitPos = STnVector3D(GetActorLocation().X, GetActorLocation().Y, GetActorLocation().Z);
         InitYaw = (double)GetActorLocation().Rotation().Yaw;
-        m_pMotionModel->Init(InitPos, InitYaw);
+        MotionModel->Init(InitPos, InitYaw);
     }
 
     AddTickPrerequisiteComponent(DTMSensor);
@@ -45,14 +60,14 @@ void AProbotPawn::Tick(float Delta)
 
 void AProbotPawn::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
-    delete m_pMotionModel;
-    m_pMotionModel = nullptr;
+    delete MotionModel;
+    MotionModel = nullptr;
 }
 
 void AProbotPawn::DoPhysics(float DeltaTime)
 {
     DeltaTime = FMath::Min(DeltaTime, 0.05f);
-    m_pMotionModel->Update(DeltaTime * SlowMoFactor);
+    MotionModel->Update(DeltaTime * SlowMoFactor);
 }
 
 void AProbotPawn::Bind(ITnPhysicalItem* pItem)
@@ -141,5 +156,5 @@ void AProbotPawn::GetTerrainMaterial(const STnVector3D& WorldPos, bool* bpMateri
 
 void AProbotPawn::ResetModel()
 {
-    m_pMotionModel->Init(InitPos, InitYaw);
+    MotionModel->Init(InitPos, InitYaw);
 }

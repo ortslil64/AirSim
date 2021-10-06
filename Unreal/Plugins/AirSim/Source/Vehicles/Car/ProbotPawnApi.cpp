@@ -20,9 +20,10 @@ void ProbotPawnApi::updateMovement(const msr::airlib::CarApiBase::CarControls& c
 
     MotionControlOutput controlOutput;
     controlOutput.validFields = static_cast<EPossibleCommands>(EPC_STEERING | EPC_THROTTLE);
-    controlOutput.throttleCommand = FMath::Fmod(controls.throttle * 100, 60);
-    controlOutput.steeringCommand = FMath::Fmod(-controls.steering * 2 * 100, 60);
-    pawn_->m_pMotionModel->SetControlCommands(controlOutput);
+    controlOutput.throttleCommand = FMath::Clamp(controls.throttle * 100, -pawn_->MaxThrottle, pawn_->MaxThrottle);
+    controlOutput.steeringCommand = FMath::Clamp(-controls.steering * 2 * 100, -pawn_->MaxSteering, pawn_->MaxSteering);
+    //   GEngine->AddOnScreenDebugMessage(20, 0.2, FColor::Red, FString::SanitizeFloat(controlOutput.steeringCommand));
+    pawn_->MotionModel->SetControlCommands(controlOutput);
 
     /*
     if (!controls.is_manual_gear && movement_->GetTargetGear() < 0)
