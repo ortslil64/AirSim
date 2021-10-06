@@ -20,6 +20,8 @@ public:
 
     virtual msr::airlib::CarApiBase::CarState getCarState() const override;
 
+    virtual void reset();
+
     virtual ~ProbotPawnApi();
 
 protected:

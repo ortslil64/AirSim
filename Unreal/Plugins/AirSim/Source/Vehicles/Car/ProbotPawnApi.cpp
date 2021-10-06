@@ -4,6 +4,7 @@
 #include "PhysXVehicleManager.h"
 #include "ProbotPawn.h"
 #include "CarPawn.h"
+#include "CarPawnApi.h"
 
 ProbotPawnApi::ProbotPawnApi(ACarPawn* pawn, const msr::airlib::Kinematics::State* pawn_kinematics,
                              msr::airlib::CarApiBase* vehicle_api)
@@ -47,6 +48,12 @@ msr::airlib::CarApiBase::CarState ProbotPawnApi::getCarState() const
     //         *pawn_kinematics_,
     //         msr::airlib::ClockFactory::get()->nowNanos());
     return msr::airlib::CarApiBase::CarState();
+}
+
+void ProbotPawnApi::reset()
+{
+    CarPawnApi::reset();
+    pawn_->ResetModel();
 }
 
 ProbotPawnApi::~ProbotPawnApi() = default;
