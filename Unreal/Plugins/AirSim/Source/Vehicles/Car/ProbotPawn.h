@@ -61,6 +61,8 @@ public:
     virtual void OnDataUpdate(double timeSeconds) override {}
     virtual double GetTimeSeconds() override { return 0; }
 
+    void ResetModel();
+
 public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     UUnrealDTMSensor* DTMSensor;
@@ -76,6 +78,8 @@ private:
 private:
     float VehicleSpeed;
     float SlowMoFactor;
+    STnVector3D InitPos;
+    double InitYaw;
 };
 
 #pragma warning(pop)

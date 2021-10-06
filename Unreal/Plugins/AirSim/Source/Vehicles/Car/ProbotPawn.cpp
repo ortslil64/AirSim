@@ -28,8 +28,9 @@ void AProbotPawn::BeginPlay()
         bool isReload = false;
         m_pMotionModel->Generate(TCHAR_TO_ANSI(*excelPath), isReload);
 
-        STnVector3D InitPos(GetActorLocation().X, GetActorLocation().Y, GetActorLocation().Z);
-        m_pMotionModel->Init(InitPos, (double)GetActorLocation().Rotation().Yaw);
+        InitPos = STnVector3D(GetActorLocation().X, GetActorLocation().Y, GetActorLocation().Z);
+        InitYaw = (double)GetActorLocation().Rotation().Yaw;
+        m_pMotionModel->Init(InitPos, InitYaw);
     }
 
     AddTickPrerequisiteComponent(DTMSensor);
@@ -136,4 +137,9 @@ void AProbotPawn::GetTerrainHeight(double x, double y, bool* isFound, double* pd
 
 void AProbotPawn::GetTerrainMaterial(const STnVector3D& WorldPos, bool* bpMaterialFound, ITnMotionMaterial::STerrainMaterialType& TerrainMaterialType, double& moisture)
 {
+}
+
+void AProbotPawn::ResetModel()
+{
+    m_pMotionModel->Init(InitPos, InitYaw);
 }
