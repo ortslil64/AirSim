@@ -8,11 +8,11 @@
 
 AProbotPawn::AProbotPawn()
     : ModelType(EModelType::None)
+    , MaxThrottle(10.0)
+    , MaxSteering(10.0)
     , MotionModel(nullptr)
     , VehicleSpeed(2)
     , SlowMoFactor(1)
-    , MaxThrottle(10.0)
-    , MaxSteering(10.0)
 {
 }
 
