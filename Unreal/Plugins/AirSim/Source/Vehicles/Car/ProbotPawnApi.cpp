@@ -1,10 +1,7 @@
 #include "ProbotPawnApi.h"
 #include "AirBlueprintLib.h"
 
-#include "PhysXVehicleManager.h"
 #include "ProbotPawn.h"
-#include "CarPawn.h"
-#include "CarPawnApi.h"
 
 ProbotPawnApi::ProbotPawnApi(ACarPawn* pawn, const msr::airlib::Kinematics::State* pawn_kinematics,
                              msr::airlib::CarApiBase* vehicle_api)
