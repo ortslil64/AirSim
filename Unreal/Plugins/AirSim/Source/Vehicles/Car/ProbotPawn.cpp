@@ -141,9 +141,7 @@ bool AProbotPawn::OnCollision(ITnCollisionPointPhysicalItem** pITnCollisionPoint
 
 void AProbotPawn::GetTerrainHeight(double x, double y, bool* isFound, double* pdHeight)
 {
-    double temp = x;
-    x = y;
-    y = temp;
+    Exchange(x, y);
     x *= 100.0;
     y *= 100.0;
     *isFound = true;
