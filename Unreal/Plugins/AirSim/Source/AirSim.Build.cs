@@ -21,8 +21,10 @@ public class AirSim : ModuleRules
     }
     private string ProjectBinariesPath
     {
-        get { return Path.Combine(
-                Directory.GetParent(AirSimPluginPath).Parent.FullName, "Binaries");
+        get
+        {
+            return Path.Combine(
+              Directory.GetParent(AirSimPluginPath).Parent.FullName, "Binaries");
         }
     }
     private string AirSimPluginDependencyPath
@@ -80,7 +82,7 @@ public class AirSim : ModuleRules
 
         bEnableExceptions = true;
 
-        PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "ImageWrapper", "RenderCore", "RHI", "AssetRegistry", "PhysicsCore", "PhysXVehicles", "PhysXVehicleLib", "PhysX", "APEX", "Landscape", "Projects"});
+        PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "ImageWrapper", "RenderCore", "RHI", "AssetRegistry", "PhysicsCore", "PhysXVehicles", "PhysXVehicleLib", "PhysX", "APEX", "Landscape", "Projects" });
         PrivateDependencyModuleNames.AddRange(new string[] { "UMG", "Slate", "SlateCore" });
 
         //suppress VC++ proprietary warnings
@@ -111,12 +113,12 @@ public class AirSim : ModuleRules
             PublicAdditionalLibraries.Add("dxguid.lib");
         }
 
-		if (Target.Platform == UnrealTargetPlatform.Linux)
-		{
-			// needed when packaging
-			PublicAdditionalLibraries.Add("stdc++");
-			PublicAdditionalLibraries.Add("supc++");
-		}
+        if (Target.Platform == UnrealTargetPlatform.Linux)
+        {
+            // needed when packaging
+            PublicAdditionalLibraries.Add("stdc++");
+            PublicAdditionalLibraries.Add("supc++");
+        }
     }
 
     static void CopyFileIfNewer(string srcFilePath, string destFolder)
@@ -155,7 +157,9 @@ public class AirSim : ModuleRules
                 RuntimeDependencies.Add(Path.Combine(LibPath, PlatformString, ConfigurationString, DllFileName + ".dll"));
             }
 
-        } else if (Target.Platform == UnrealTargetPlatform.Linux || Target.Platform == UnrealTargetPlatform.Mac) {
+        }
+        else if (Target.Platform == UnrealTargetPlatform.Linux || Target.Platform == UnrealTargetPlatform.Mac)
+        {
             isLibrarySupported = true;
             PublicAdditionalLibraries.Add(Path.Combine(LibPath, "lib" + LibFileName + ".a"));
         }
@@ -178,7 +182,7 @@ public class AirSim : ModuleRules
         for (int i = 0; i < configFiles.Length; i++)
         {
             RuntimeDependencies.Add(Path.Combine(path, configFiles[i]));
-        } 
+        }
     }
 
 }
