@@ -153,6 +153,19 @@ void AProbotPawn::GetTerrainMaterial(const STnVector3D& WorldPos, bool* bpMateri
 {
 }
 
+float AProbotPawn::GetEngineRotationSpeed() const
+{
+    // ToDo - we probably need to call the RPM L/R method, but airsim print template assuming only 1 engine
+    double RPM_R, RPM_L;
+    MotionModel->GetEnginesRPM(RPM_R, RPM_L);
+    return RPM_R;
+}
+
+float AProbotPawn::GetForwardSpeed() const
+{
+    return MotionModel->GetSpeed();
+}
+
 void AProbotPawn::ResetModel()
 {
     MotionModel->Init(InitPos, InitYaw);
