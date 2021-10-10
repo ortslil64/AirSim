@@ -65,7 +65,7 @@ public:
     virtual void OnDataUpdate(double timeSeconds) override {}
     virtual double GetTimeSeconds() override { return 0; }
 
-    void ResetModel();
+    inline void ResetModel();
 
 public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -88,7 +88,7 @@ public:
     ITnVehicleMotionModel* MotionModel;
 
 private:
-    void DoPhysics(float DeltaTime);
+    inline void DoPhysics(float DeltaTime);
 
 private:
     float VehicleSpeed;
