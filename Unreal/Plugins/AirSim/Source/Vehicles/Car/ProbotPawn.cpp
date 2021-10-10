@@ -6,12 +6,13 @@
 #include <MotionCore/ITnPhysicalItem.h>
 #include <MotionCore/ITnVehicleMotionModel.h>
 
-AProbotPawn::AProbotPawn(const FObjectInitializer& ObjectInitializer)
-    : Super(ObjectInitializer)
-    , ModelType(EModelType::None)
+AProbotPawn::AProbotPawn()
+    : ModelType(EModelType::None)
     , MotionModel(nullptr)
     , VehicleSpeed(2)
     , SlowMoFactor(1)
+    , MaxThrottle(10.0)
+    , MaxSteering(10.0)
 {
 }
 

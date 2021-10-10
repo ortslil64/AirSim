@@ -47,7 +47,7 @@ class AProbotPawn : public ACarPawn
     GENERATED_BODY()
 
 public:
-    AProbotPawn(const FObjectInitializer& ObjectInitializer);
+    AProbotPawn();
 
     virtual void BeginPlay() override;
     virtual void Tick(float Delta) override;
