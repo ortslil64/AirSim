@@ -31,7 +31,7 @@ class ACarPawn : public AWheeledVehicle
     GENERATED_BODY()
 
 public:
-    ACarPawn(const FObjectInitializer& ObjectInitializer);
+    ACarPawn();
 
     virtual void BeginPlay() override;
     virtual void Tick(float Delta) override;
@@ -113,7 +113,4 @@ private:
     FText last_gear_;
     FColor last_gear_display_color_;
     FColor last_gear_display_reverse_color_;
-
-    /////////
-    bool isNwModel = true;
 };
