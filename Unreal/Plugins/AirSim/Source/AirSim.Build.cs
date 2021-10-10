@@ -94,6 +94,8 @@ public class AirSim : ModuleRules
         PublicIncludePaths.Add(Path.Combine(AirLibPath, "deps", "MotionCore", "include"));
         AddOSLibDependencies(Target);
 
+        AddMotionCoreConfigFiles(Path.Combine(AirLibPath, "deps", "MotionCore"));
+
         SetupCompileMode(CompileMode.HeaderOnlyWithRpc, Target);
     }
 
@@ -150,7 +152,7 @@ public class AirSim : ModuleRules
             if (DllFileName != null)
             {
                 PublicDelayLoadDLLs.Add(DllFileName + ".dll");
-             //   RuntimeDependencies.Add(Path.Combine(LibPath, PlatformString, ConfigurationString, DllFileName + ".dll"));
+                RuntimeDependencies.Add(Path.Combine(LibPath, PlatformString, ConfigurationString, DllFileName + ".dll"));
             }
 
         } else if (Target.Platform == UnrealTargetPlatform.Linux || Target.Platform == UnrealTargetPlatform.Mac) {
@@ -168,4 +170,15 @@ public class AirSim : ModuleRules
 
         return isLibrarySupported;
     }
+
+    private void AddMotionCoreConfigFiles(string path)
+    {
+        string[] configFiles = { "Probot3DMulti.xls", "Probot6X6.xls" };
+
+        for (int i = 0; i < configFiles.Length; i++)
+        {
+            RuntimeDependencies.Add(Path.Combine(path, configFiles[i]));
+        } 
+    }
+
 }
