@@ -54,6 +54,11 @@ public:
 
 protected:
     void updateHUDStrings();
+
+    virtual float GetEngineRotationSpeed() const;
+    virtual int32 GetCurrentGear() const;
+    virtual float GetForwardSpeed() const;
+
     void setupVehicleMovementComponent();
     void updateInCarHUD();
     void updatePhysicsMaterial();
