@@ -3,9 +3,9 @@
 #include "vehicles/car/api/CarApiBase.hpp"
 #include "WheeledVehicleMovementComponent4W.h"
 #include "physics/Kinematics.hpp"
-#include "CarPawn.h"
 #include "CarPawnApi.h"
 
+class ACarPawn;
 class AProbotPawn;
 
 class ProbotPawnApi : public CarPawnApi
