@@ -5,13 +5,9 @@
 #include "CoreMinimal.h"
 #include "CarPawn.h"
 
-#include "Windows/AllowWindowsPlatformTypes.h"
-
 #include <MotionCore/ITnAppItem.h>
 #include <MotionCore/ITnMotionQueries.h>
 #include <MotionCore/ITnPhysicalItemBinder.h>
-
-#include "Windows/HideWindowsPlatformTypes.h"
 
 #include "ProbotPawn.generated.h"
 
