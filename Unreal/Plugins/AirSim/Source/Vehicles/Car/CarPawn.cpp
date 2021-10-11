@@ -251,7 +251,7 @@ void ACarPawn::Tick(float Delta)
 
     // Pass the engine RPM to the sound component
     float RPMToAudioScale = 2500.0f / GetVehicleMovement()->GetEngineMaxRotationSpeed();
-    engine_sound_audio_->SetFloatParameter(FName("RPM"), GetEngineRotationSpeed() * RPMToAudioScale);
+    engine_sound_audio_->SetFloatParameter(FName("RPM"), GetVehicleMovement()->GetEngineRotationSpeed() * RPMToAudioScale);
 
     pawn_events_.getPawnTickSignal().emit(Delta);
 }
@@ -266,16 +266,17 @@ void ACarPawn::BeginPlay()
 
 void ACarPawn::updateHUDStrings()
 {
+
     float speed_unit_factor = AirSimSettings::singleton().speed_unit_factor;
     FText speed_unit_label = FText::FromString(FString(AirSimSettings::singleton().speed_unit_label.c_str()));
-    float vel = FMath::Abs(GetForwardSpeed());
+    float vel = FMath::Abs(GetVehicleMovement()->GetForwardSpeed() / 100); //cm/s -> m/s
     float vel_rounded = FMath::FloorToInt(vel * 10 * speed_unit_factor) / 10.0f;
-    int32 Gear = GetCurrentGear();
+    int32 Gear = GetVehicleMovement()->GetCurrentGear();
 
     // Using FText because this is display text that should be localizable
     last_speed_ = FText::Format(LOCTEXT("SpeedFormat", "{0} {1}"), FText::AsNumber(vel_rounded), speed_unit_label);
 
-    if (GetCurrentGear() < 0) {
+    if (GetVehicleMovement()->GetCurrentGear() < 0) {
         last_gear_ = FText(LOCTEXT("ReverseGear", "R"));
     }
     else {
@@ -284,23 +285,7 @@ void ACarPawn::updateHUDStrings()
 
     UAirBlueprintLib::LogMessage(TEXT("Speed: "), last_speed_.ToString(), LogDebugLevel::Informational);
     UAirBlueprintLib::LogMessage(TEXT("Gear: "), last_gear_.ToString(), LogDebugLevel::Informational);
-    UAirBlueprintLib::LogMessage(TEXT("RPM: "), FText::AsNumber(GetEngineRotationSpeed()).ToString(), LogDebugLevel::Informational);
-}
-
-float ACarPawn::GetEngineRotationSpeed() const
-{
-    return GetVehicleMovement()->GetEngineRotationSpeed();
-}
-
-int32 ACarPawn::GetCurrentGear() const
-{
-    return GetVehicleMovement()->GetCurrentGear();
-}
-
-float ACarPawn::GetForwardSpeed() const
-{
-    //cm/s -> m/s
-    return GetVehicleMovement()->GetForwardSpeed() / 100;
+    UAirBlueprintLib::LogMessage(TEXT("RPM: "), FText::AsNumber(GetVehicleMovement()->GetEngineRotationSpeed()).ToString(), LogDebugLevel::Informational);
 }
 
 void ACarPawn::updateInCarHUD()
@@ -311,7 +296,7 @@ void ACarPawn::updateInCarHUD()
         speed_text_render_->SetText(last_speed_);
         gear_text_render_->SetText(last_gear_);
 
-        if (GetCurrentGear() >= 0) {
+        if (GetVehicleMovement()->GetCurrentGear() >= 0) {
             gear_text_render_->SetTextRenderColor(last_gear_display_color_);
         }
         else {
