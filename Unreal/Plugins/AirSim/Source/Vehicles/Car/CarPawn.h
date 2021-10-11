@@ -53,7 +53,7 @@ public:
     }
 
 protected:
-    void updateHUDStrings();
+    virtual void updateHUDStrings();
     void setupVehicleMovementComponent();
     void updateInCarHUD();
     void updatePhysicsMaterial();
@@ -69,6 +69,8 @@ protected:
 
 protected:
     PawnEvents pawn_events_;
+    FText last_speed_;
+    FText last_gear_;
 
 private:
     typedef msr::airlib::AirSimSettings AirSimSettings;
@@ -109,8 +111,6 @@ private:
 
     msr::airlib::CarApiBase::CarControls keyboard_controls_;
 
-    FText last_speed_;
-    FText last_gear_;
     FColor last_gear_display_color_;
     FColor last_gear_display_reverse_color_;
 };

@@ -6,6 +6,8 @@
 #include <MotionCore/ITnPhysicalItem.h>
 #include <MotionCore/ITnVehicleMotionModel.h>
 
+#define LOCTEXT_NAMESPACE "VehiclePawn"
+
 AProbotPawn::AProbotPawn()
     : ModelType(EModelType::None)
     , MaxThrottle(10.0)
@@ -153,7 +155,27 @@ void AProbotPawn::GetTerrainMaterial(const STnVector3D& WorldPos, bool* bpMateri
 {
 }
 
+void AProbotPawn::updateHUDStrings()
+{
+    float speed_unit_factor = AirSimSettings::singleton().speed_unit_factor;
+    FText speed_unit_label = FText::FromString(FString(AirSimSettings::singleton().speed_unit_label.c_str()));
+    float vel = FMath::Abs(MotionModel->GetSpeed());
+    float vel_rounded = FMath::FloorToInt(vel * 10 * speed_unit_factor) / 10.0f;
+
+    // Using FText because this is display text that should be localizable
+    last_speed_ = FText::Format(LOCTEXT("SpeedFormat", "{0} {1}"), FText::AsNumber(vel_rounded), speed_unit_label);
+
+    UAirBlueprintLib::LogMessage(TEXT("Speed: "), last_speed_.ToString(), LogDebugLevel::Informational);
+
+    double RPM_R, RPM_L;
+    MotionModel->GetEnginesRPM(RPM_R, RPM_L);
+    UAirBlueprintLib::LogMessage(TEXT("RPM R: "), FText::AsNumber(RPM_R).ToString(), LogDebugLevel::Informational);
+    UAirBlueprintLib::LogMessage(TEXT("RPM L: "), FText::AsNumber(RPM_L).ToString(), LogDebugLevel::Informational);
+}
+
 void AProbotPawn::ResetModel()
 {
     MotionModel->Init(InitPos, InitYaw);
 }
+
+#undef LOCTEXT_NAMESPACE

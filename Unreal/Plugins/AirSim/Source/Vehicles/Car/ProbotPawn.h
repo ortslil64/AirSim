@@ -65,6 +65,9 @@ public:
     virtual void OnDataUpdate(double timeSeconds) override {}
     virtual double GetTimeSeconds() override { return 0; }
 
+    // ACarPawn override
+    virtual void updateHUDStrings() override;
+
     inline void ResetModel();
 
 public:
