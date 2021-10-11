@@ -31,8 +31,8 @@ void AProbotPawn::BeginPlay()
 
         switch (ModelType) {
         case EModelType::None:
-            UAirBlueprintLib::LogMessageString("Error in Probot pawn: ModelType can't be None", "", LogDebugLevel::Failure);
-            UAirBlueprintLib::ShowMessage(EAppMsgType::Ok, "Error: ModelType can't be None", "Error");
+            UAirBlueprintLib::LogMessageString("ProbotPawn: ModelType can't be None", "", LogDebugLevel::Failure);
+            UAirBlueprintLib::ShowMessage(EAppMsgType::Ok, "ProbotPawn: ModelType can't be None", "Error");
             break;
         case EModelType::Probot:
             configFilename = "Probot3DMulti.xls";
@@ -43,12 +43,21 @@ void AProbotPawn::BeginPlay()
         }
 
         FString configFilePath = FPaths::Combine(baseDir, configFilename);
+        if (!FPaths::FileExists(configFilePath)) {
+            std::string msg = std::string("Couldn't find config file: ") + TCHAR_TO_UTF8(*configFilePath);
+            UAirBlueprintLib::LogMessageString(msg, "", LogDebugLevel::Failure);
+            UAirBlueprintLib::ShowMessage(EAppMsgType::Ok, msg, "Error");
+        }
+
         bool isReload = false;
-        MotionModel->Generate(TCHAR_TO_ANSI(*configFilePath), isReload);
+        bool ret = MotionModel->Generate(TCHAR_TO_ANSI(*configFilePath), isReload);
+        if (!ret) {
+            UAirBlueprintLib::LogMessageString("Motion Model couldn't be generated", "", LogDebugLevel::Failure);
+        }
 
         InitPos = STnVector3D(GetActorLocation().X, GetActorLocation().Y, GetActorLocation().Z);
         InitYaw = (double)GetActorLocation().Rotation().Yaw;
-        MotionModel->Init(InitPos, InitYaw);
+        InitModel();
     }
 
     AddTickPrerequisiteComponent(DTMSensor);
@@ -174,9 +183,15 @@ void AProbotPawn::updateHUDStrings()
     UAirBlueprintLib::LogMessage(TEXT("Chassis Yaw: "), FText::AsNumber(MotionModel->GetChassisYaw()).ToString(), LogDebugLevel::Informational);
 }
 
-void AProbotPawn::ResetModel()
+void AProbotPawn::InitModel()
 {
-    MotionModel->Init(InitPos, InitYaw);
+    ITnErrors::EMotionCode ret = MotionModel->Init(InitPos, InitYaw);
+    if (ret == ITnErrors::EMotionCode::SUCCESS) {
+        UAirBlueprintLib::LogMessageString("Motion Model initialized successfully", "", LogDebugLevel::Informational);
+    }
+    else {
+        UAirBlueprintLib::LogMessageString("Motion Model couldn't be initialized", "", LogDebugLevel::Failure);
+    }
 }
 
 #undef LOCTEXT_NAMESPACE
