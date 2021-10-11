@@ -48,6 +48,8 @@ public:
     virtual void BeginPlay() override;
     virtual void Tick(float Delta) override;
     virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
+    //     virtual void NotifyHit(class UPrimitiveComponent* MyComp, class AActor* Other, class UPrimitiveComponent* OtherComp, bool bSelfMoved, FVector HitLocation,
+    //                            FVector HitNormal, FVector NormalImpulse, const FHitResult& Hit) override;
 
     // ITnPhysicalItemBinder override
     virtual void Bind(ITnPhysicalItem*) override;
@@ -62,10 +64,6 @@ public:
     virtual void StartTimer() override {}
     virtual void OnDataUpdate(double timeSeconds) override {}
     virtual double GetTimeSeconds() override { return 0; }
-
-    // ACarPawn override
-    virtual float GetEngineRotationSpeed() const override;
-    virtual float GetForwardSpeed() const override;
 
     inline void ResetModel();
 
