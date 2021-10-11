@@ -54,7 +54,7 @@ msr::airlib::CarApiBase::CarState ProbotPawnApi::getCarState() const
 void ProbotPawnApi::reset()
 {
     CarPawnApi::reset();
-    pawn_->ResetModel();
+    pawn_->InitModel();
 }
 
 ProbotPawnApi::~ProbotPawnApi() = default;

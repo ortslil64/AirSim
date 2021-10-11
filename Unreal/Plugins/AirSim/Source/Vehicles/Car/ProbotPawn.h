@@ -48,8 +48,6 @@ public:
     virtual void BeginPlay() override;
     virtual void Tick(float Delta) override;
     virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
-    //     virtual void NotifyHit(class UPrimitiveComponent* MyComp, class AActor* Other, class UPrimitiveComponent* OtherComp, bool bSelfMoved, FVector HitLocation,
-    //                            FVector HitNormal, FVector NormalImpulse, const FHitResult& Hit) override;
 
     // ITnPhysicalItemBinder override
     virtual void Bind(ITnPhysicalItem*) override;
@@ -68,7 +66,7 @@ public:
     // ACarPawn override
     virtual void updateHUDStrings() override;
 
-    inline void ResetModel();
+    void InitModel();
 
 public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
