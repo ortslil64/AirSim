@@ -171,6 +171,7 @@ void AProbotPawn::updateHUDStrings()
     MotionModel->GetEnginesRPM(RPM_R, RPM_L);
     UAirBlueprintLib::LogMessage(TEXT("RPM R: "), FText::AsNumber(RPM_R).ToString(), LogDebugLevel::Informational);
     UAirBlueprintLib::LogMessage(TEXT("RPM L: "), FText::AsNumber(RPM_L).ToString(), LogDebugLevel::Informational);
+    UAirBlueprintLib::LogMessage(TEXT("Chassis Yaw: "), FText::AsNumber(MotionModel->GetChassisYaw()).ToString(), LogDebugLevel::Informational);
 }
 
 void AProbotPawn::ResetModel()
