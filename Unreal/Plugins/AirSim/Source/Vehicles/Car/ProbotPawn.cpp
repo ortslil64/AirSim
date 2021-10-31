@@ -55,7 +55,7 @@ void AProbotPawn::BeginPlay()
             UAirBlueprintLib::LogMessageString("Motion Model couldn't be generated", "", LogDebugLevel::Failure);
         }
 
-        InitPos = STnVector3D(GetActorLocation().X, GetActorLocation().Y, GetActorLocation().Z);
+        InitPos = STnVector3D(GetActorLocation().X, GetActorLocation().Y, GetActorLocation().Z) / 100;
         InitYaw = (double)GetActorLocation().Rotation().Yaw;
         InitModel();
     }
@@ -127,13 +127,14 @@ void AProbotPawn::OnUpdate(ITnPhysicalItem** pITnPhysicalItemsArray, int numItem
 
             const char* tag = pITnPhysicalItem->GetTag();
             if (eType == ITnPhysicalItem::EPIT_BODY) {
+                FVector WorldToGlobalOffset = FVector(InitPos.y, InitPos.x, InitPos.z) * 100;
                 if (FString(tag).Equals("CHASSIS")) {
                     // We need to update location and rotation of the root CarPawn (AirSim) component
                     // to make AirSim features work in this platform.
                     // This is a workaround to "attach" the root to the chassis, bc inherited component can't be moved.
-                    GetRootComponent()->SetWorldLocationAndRotation(Location, Rotation);
+                    GetRootComponent()->SetWorldLocationAndRotation(Location + WorldToGlobalOffset, Rotation);
                 }
-                pSaticMesh->SetWorldLocation(Location);
+                pSaticMesh->SetWorldLocation(Location + WorldToGlobalOffset);
                 pSaticMesh->SetWorldRotation(Rotation);
             }
             else {
