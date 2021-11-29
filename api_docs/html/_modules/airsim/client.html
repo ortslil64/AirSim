@@ -1,75 +1,34 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>airsim.client &mdash; airsim 1.6.0 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-
-    
+    <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../../index.html" class="icon icon-home"> airsim
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
                 1.6.0
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -77,83 +36,33 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <!-- Local TOC -->
               <div class="local-toc"></div>
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../index.html">airsim</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../index.html">Module code</a> &raquo;</li>
-        
       <li>airsim.client</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
   <h1>Source code for airsim.client</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
@@ -315,6 +224,19 @@
             <span class="nb">print</span><span class="p">(</span><span class="n">ver_info</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span></div>
 
+<div class="viewcode-block" id="VehicleClient.simSetLightIntensity"><a class="viewcode-back" href="../../index.html#airsim.client.VehicleClient.simSetLightIntensity">[docs]</a>    <span class="k">def</span> <span class="nf">simSetLightIntensity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">light_name</span><span class="p">,</span> <span class="n">intensity</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Change intensity of named light</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            light_name (str): Name of light to change</span>
+<span class="sd">            intensity (float): New intensity value</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if successful, otherwise False</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s2">&quot;simSetLightIntensity&quot;</span><span class="p">,</span> <span class="n">light_name</span><span class="p">,</span> <span class="n">intensity</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="VehicleClient.simSwapTextures"><a class="viewcode-back" href="../../index.html#airsim.client.VehicleClient.simSwapTextures">[docs]</a>    <span class="k">def</span> <span class="nf">simSwapTextures</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tags</span><span class="p">,</span> <span class="n">tex_id</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">component_id</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">material_id</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Runtime Swap Texture API</span>
@@ -333,6 +255,33 @@
 <span class="sd">            list[str]: List of objects which matched the provided tags and had the texture swap perfomed</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s2">&quot;simSwapTextures&quot;</span><span class="p">,</span> <span class="n">tags</span><span class="p">,</span> <span class="n">tex_id</span><span class="p">,</span> <span class="n">component_id</span><span class="p">,</span> <span class="n">material_id</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="VehicleClient.simSetObjectMaterial"><a class="viewcode-back" href="../../index.html#airsim.client.VehicleClient.simSetObjectMaterial">[docs]</a>    <span class="k">def</span> <span class="nf">simSetObjectMaterial</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">object_name</span><span class="p">,</span> <span class="n">material_name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Runtime Swap Texture API</span>
+<span class="sd">        See https://microsoft.github.io/AirSim/retexturing/ for details</span>
+<span class="sd">        Args:</span>
+<span class="sd">            object_name (str): name of object to set material for</span>
+<span class="sd">            material_name (str): name of material to set for object</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if material was set</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s2">&quot;simSetObjectMaterial&quot;</span><span class="p">,</span> <span class="n">object_name</span><span class="p">,</span> <span class="n">material_name</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="VehicleClient.simSetObjectMaterialFromTexture"><a class="viewcode-back" href="../../index.html#airsim.client.VehicleClient.simSetObjectMaterialFromTexture">[docs]</a>    <span class="k">def</span> <span class="nf">simSetObjectMaterialFromTexture</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">object_name</span><span class="p">,</span> <span class="n">texture_path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Runtime Swap Texture API</span>
+<span class="sd">        See https://microsoft.github.io/AirSim/retexturing/ for details</span>
+<span class="sd">        Args:</span>
+<span class="sd">            object_name (str): name of object to set material for</span>
+<span class="sd">            texture_path (str): path to texture to set for object</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if material was set</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s2">&quot;simSetObjectMaterialFromTexture&quot;</span><span class="p">,</span> <span class="n">object_name</span><span class="p">,</span> <span class="n">texture_path</span><span class="p">)</span></div>
+
 
     <span class="c1"># time-of-day control</span>
 <div class="viewcode-block" id="VehicleClient.simSetTimeOfDay"><a class="viewcode-back" href="../../index.html#airsim.client.VehicleClient.simSetTimeOfDay">[docs]</a>    <span class="k">def</span> <span class="nf">simSetTimeOfDay</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_enabled</span><span class="p">,</span> <span class="n">start_datetime</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">is_start_datetime_dst</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">celestial_clock_speed</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">update_interval_secs</span> <span class="o">=</span> <span class="mi">60</span><span class="p">,</span> <span class="n">move_sun</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
@@ -613,7 +562,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s1">&#39;simLoadLevel&#39;</span><span class="p">,</span> <span class="n">level_name</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="VehicleClient.simSpawnObject"><a class="viewcode-back" href="../../index.html#airsim.client.VehicleClient.simSpawnObject">[docs]</a>    <span class="k">def</span> <span class="nf">simSpawnObject</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">object_name</span><span class="p">,</span> <span class="n">asset_name</span><span class="p">,</span> <span class="n">pose</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="n">physics_enabled</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="VehicleClient.simSpawnObject"><a class="viewcode-back" href="../../index.html#airsim.client.VehicleClient.simSpawnObject">[docs]</a>    <span class="k">def</span> <span class="nf">simSpawnObject</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">object_name</span><span class="p">,</span> <span class="n">asset_name</span><span class="p">,</span> <span class="n">pose</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="n">physics_enabled</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">is_blueprint</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Spawned selected object in the world</span>
 <span class="sd">        </span>
 <span class="sd">        Args:</span>
@@ -621,11 +570,13 @@
 <span class="sd">            asset_name (str): Name of asset(mesh) in the project database</span>
 <span class="sd">            pose (airsim.Pose): Desired pose of object</span>
 <span class="sd">            scale (airsim.Vector3r): Desired scale of object</span>
+<span class="sd">            physics_enabled (bool, optional): Whether to enable physics for the object</span>
+<span class="sd">            is_blueprint (bool, optional): Whether to spawn a blueprint or an actor</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
 <span class="sd">            str: Name of spawned object, in case it had to be modified</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s1">&#39;simSpawnObject&#39;</span><span class="p">,</span> <span class="n">object_name</span><span class="p">,</span> <span class="n">asset_name</span><span class="p">,</span> <span class="n">pose</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="n">physics_enabled</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s1">&#39;simSpawnObject&#39;</span><span class="p">,</span> <span class="n">object_name</span><span class="p">,</span> <span class="n">asset_name</span><span class="p">,</span> <span class="n">pose</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="n">physics_enabled</span><span class="p">,</span> <span class="n">is_blueprint</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="VehicleClient.simDestroyObject"><a class="viewcode-back" href="../../index.html#airsim.client.VehicleClient.simDestroyObject">[docs]</a>    <span class="k">def</span> <span class="nf">simDestroyObject</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">object_name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Removes selected object from the world</span>
@@ -839,6 +790,19 @@
         <span class="n">kinematics_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s1">&#39;simGetGroundTruthKinematics&#39;</span><span class="p">,</span> <span class="n">vehicle_name</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">KinematicsState</span><span class="o">.</span><span class="n">from_msgpack</span><span class="p">(</span><span class="n">kinematics_state</span><span class="p">)</span></div>
     <span class="n">simGetGroundTruthKinematics</span><span class="o">.</span><span class="vm">__annotations__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;return&#39;</span><span class="p">:</span> <span class="n">KinematicsState</span><span class="p">}</span>
+
+<div class="viewcode-block" id="VehicleClient.simSetKinematics"><a class="viewcode-back" href="../../index.html#airsim.client.VehicleClient.simSetKinematics">[docs]</a>    <span class="k">def</span> <span class="nf">simSetKinematics</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">ignore_collision</span><span class="p">,</span> <span class="n">vehicle_name</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the kinematics state of the vehicle</span>
+
+<span class="sd">        If you don&#39;t want to change position (or orientation) then just set components of position (or orientation) to floating point nan values</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            state (KinematicsState): Desired Pose pf the vehicle</span>
+<span class="sd">            ignore_collision (bool): Whether to ignore any collision or not</span>
+<span class="sd">            vehicle_name (str, optional): Name of the vehicle to move</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s1">&#39;simSetKinematics&#39;</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">ignore_collision</span><span class="p">,</span> <span class="n">vehicle_name</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="VehicleClient.simGetGroundTruthEnvironment"><a class="viewcode-back" href="../../index.html#airsim.client.VehicleClient.simGetGroundTruthEnvironment">[docs]</a>    <span class="k">def</span> <span class="nf">simGetGroundTruthEnvironment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vehicle_name</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -1332,7 +1296,7 @@
 <div class="viewcode-block" id="MultirotorClient.moveByRollPitchYawThrottleAsync"><a class="viewcode-back" href="../../index.html#airsim.client.MultirotorClient.moveByRollPitchYawThrottleAsync">[docs]</a>    <span class="k">def</span> <span class="nf">moveByRollPitchYawThrottleAsync</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">roll</span><span class="p">,</span> <span class="n">pitch</span><span class="p">,</span> <span class="n">yaw</span><span class="p">,</span> <span class="n">throttle</span><span class="p">,</span> <span class="n">duration</span><span class="p">,</span> <span class="n">vehicle_name</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        - Desired throttle is between 0.0 to 1.0</span>
-<span class="sd">        - Roll angle, pitch angle, and yaw angle are given in **radians**, in the body frame.</span>
+<span class="sd">        - Roll angle, pitch angle, and yaw angle are given in **degrees** when using PX4 and in **radians** when using SimpleFlight, in the body frame.</span>
 <span class="sd">        - The body frame follows the Front Left Up (FLU) convention, and right-handedness.</span>
 
 <span class="sd">        - Frame Convention:</span>
@@ -1352,9 +1316,9 @@
 <span class="sd">            | Hence, yawing with a positive angle is equivalent to rotated towards the **left** direction wrt our FLU body frame. Or in an anticlockwise fashion in the body XY / FL plane.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            roll (float): Desired roll angle, in radians.</span>
-<span class="sd">            pitch (float): Desired pitch angle, in radians.</span>
-<span class="sd">            yaw (float): Desired yaw angle, in radians.</span>
+<span class="sd">            roll (float): Desired roll angle.</span>
+<span class="sd">            pitch (float): Desired pitch angle.</span>
+<span class="sd">            yaw (float): Desired yaw angle.</span>
 <span class="sd">            throttle (float): Desired throttle (between 0.0 to 1.0)</span>
 <span class="sd">            duration (float): Desired amount of time (seconds), to send this command for</span>
 <span class="sd">            vehicle_name (str, optional): Name of the multirotor to send this command to</span>
@@ -1629,46 +1593,30 @@
 </pre></div>
 
            </div>
-           
           </div>
           <footer>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2020, Shital Shah, Ratnesh Madaan, Sai Vemprala, Nicholas Gyde.
-
-    </p>
+    <p>&#169; Copyright 2020, Shital Shah, Ratnesh Madaan, Sai Vemprala, Nicholas Gyde.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>
