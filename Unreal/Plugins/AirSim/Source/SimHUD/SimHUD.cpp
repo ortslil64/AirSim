@@ -175,6 +175,24 @@ void ASimHUD::inputEventToggleAll()
     updateWidgetSubwindowVisibility();
 }
 
+void ASimHUD::inputEventToggleSubwindow0Fullscreen()
+{
+    inputEventToggleSubwindow0();
+    widget_->maximizeSubWindow(0);
+}
+
+void ASimHUD::inputEventToggleSubwindow1Fullscreen()
+{
+    inputEventToggleSubwindow1();
+    widget_->maximizeSubWindow(1);
+}
+
+void ASimHUD::inputEventToggleSubwindow2Fullscreen()
+{
+    inputEventToggleSubwindow2();
+    widget_->maximizeSubWindow(2);
+}
+
 void ASimHUD::createMainWidget()
 {
     //create main widget

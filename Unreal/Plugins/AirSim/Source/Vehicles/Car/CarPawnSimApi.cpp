@@ -25,7 +25,7 @@ void CarPawnSimApi::initialize()
                                             sensor_factory,
                                             *getGroundTruthKinematics(),
                                             *getGroundTruthEnvironment());
-    if (pawn->IsA(AProbotPawn::StaticClass())) {
+    if (getPawn()->IsA(AProbotPawn::StaticClass())) {
         pawn_api_ = std::unique_ptr<ProbotPawnApi>(new ProbotPawnApi(static_cast<AProbotPawn*>(getPawn()), getGroundTruthKinematics(), vehicle_api_.get()));
     }
     else {
