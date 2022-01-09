@@ -38,7 +38,7 @@ void AProbotPawn::BeginPlay()
             configFilename = "Probot3DMulti.xls";
             break;
         case EModelType::Rook:
-            configFilename = "Probot6X6.xls";
+            configFilename = "Rook3DMulti.xls";
             break;
         }
 
