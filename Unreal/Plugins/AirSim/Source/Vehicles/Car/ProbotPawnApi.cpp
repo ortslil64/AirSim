@@ -15,11 +15,14 @@ void ProbotPawnApi::updateMovement(const msr::airlib::CarApiBase::CarControls& c
 {
     last_controls_ = controls;
 
-    MotionControlOutput controlOutput;
-    controlOutput.validFields = static_cast<EPossibleCommands>(EPC_STEERING | EPC_THROTTLE);
-    controlOutput.throttleCommand = FMath::Clamp(controls.throttle * 100, -pawn_->MaxThrottle, pawn_->MaxThrottle);
-    controlOutput.steeringCommand = FMath::Clamp(-controls.steering * 2 * 100, -pawn_->MaxSteering, pawn_->MaxSteering);
-    pawn_->MotionModel->SetControlCommands(controlOutput);
+   // MotionControlOutput controlOutput;
+
+    ITnVehicleMotionModel::MotionControlInput controlInput;
+
+    controlInput.validFields = static_cast<ITnVehicleMotionModel::EPossibleInputCommands>(ITnVehicleMotionModel::EPIC_STEERING | ITnVehicleMotionModel::EPIC_THROTTLE);
+    controlInput.throttleCommand = FMath::Clamp(controls.throttle * 100, -pawn_->MaxThrottle, pawn_->MaxThrottle);
+    controlInput.steeringCommand = FMath::Clamp(-controls.steering * 2 * 100, -pawn_->MaxSteering, pawn_->MaxSteering);
+    pawn_->MotionModel->SetControlCommands(controlInput);
 
     /*
     if (!controls.is_manual_gear && movement_->GetTargetGear() < 0)
@@ -27,8 +30,8 @@ void ProbotPawnApi::updateMovement(const msr::airlib::CarApiBase::CarControls& c
     if (controls.is_manual_gear && movement_->GetTargetGear() != controls.manual_gear)
         movement_->SetTargetGear(controls.manual_gear, controls.gear_immediate);
         */
-    movement_->SetThrottleInput(controlOutput.throttleCommand);
-    movement_->SetSteeringInput(controlOutput.steeringCommand);
+    movement_->SetThrottleInput(controlInput.throttleCommand);
+    movement_->SetSteeringInput(controlInput.steeringCommand);
     // movement_->SetBrakeInput(controls.brake);
     // movement_->SetHandbrakeInput(controls.handbrake);
     // movement_->SetUseAutoGears(!controls.is_manual_gear);
