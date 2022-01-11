@@ -177,7 +177,7 @@ public class AirSim : ModuleRules
 
     private void AddMotionCoreConfigFiles(string path)
     {
-        string[] configFiles = { "Probot3DMulti.xls", "Probot6X6.xls" };
+        string[] configFiles = { "Probot3DMulti.xls", "Rook3DMulti.xls" };
 
         for (int i = 0; i < configFiles.Length; i++)
         {
