@@ -15,7 +15,7 @@ void ProbotPawnApi::updateMovement(const msr::airlib::CarApiBase::CarControls& c
 {
     last_controls_ = controls;
 
-   // MotionControlOutput controlOutput;
+    // MotionControlOutput controlOutput;
 
     ITnVehicleMotionModel::MotionControlInput controlInput;
 
