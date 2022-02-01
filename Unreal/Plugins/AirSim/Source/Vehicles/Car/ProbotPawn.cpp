@@ -50,7 +50,10 @@ void AProbotPawn::BeginPlay()
         }
 
         bool isReload = false;
-        bool ret = MotionModel->Generate(TCHAR_TO_ANSI(*configFilePath), isReload);
+        ITnMotionModel::MotionModelGenerateData generateData;
+        generateData.collisionPolicy = E_COLLISION_POLICY::ECP_STOP_UPDATE_CYCLES;
+        generateData.collisionEventsSource = E_COLLISION_EVENTS_SOURCE::ECE_EXTERNAL_EVENTS;
+        bool ret = MotionModel->Generate(TCHAR_TO_ANSI(*configFilePath), isReload, generateData);
         if (!ret) {
             UAirBlueprintLib::LogMessageString("Motion Model couldn't be generated", "", LogDebugLevel::Failure);
         }
@@ -74,6 +77,15 @@ void AProbotPawn::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
     delete MotionModel;
     MotionModel = nullptr;
+}
+
+void AProbotPawn::NotifyHit(class UPrimitiveComponent* MyComp, class AActor* Other, class UPrimitiveComponent* OtherComp, bool bSelfMoved, FVector HitLocation,
+                         FVector HitNormal, FVector NormalImpulse, const FHitResult& Hit)
+{
+    pawn_events_.getCollisionSignal().emit(MyComp, Other, OtherComp, bSelfMoved, HitLocation, HitNormal, NormalImpulse, Hit);
+
+    HitLocation /= 100;
+    MotionModel->SetCollisionEvent(STnVector3D(HitLocation.Y, HitLocation.X, HitLocation.Z));
 }
 
 void AProbotPawn::DoPhysics(float DeltaTime)
@@ -125,6 +137,7 @@ void AProbotPawn::OnUpdate(ITnPhysicalItem** pITnPhysicalItemsArray, int numItem
             ITnPhysicalItem::EPhysicalItemType eType;
             eType = pITnPhysicalItem->GetType();
 
+            const bool bSweep = true;
             const char* tag = pITnPhysicalItem->GetTag();
             if (eType == ITnPhysicalItem::EPIT_BODY) {
                 FVector WorldToGlobalOffset = FVector(InitPos.y, InitPos.x, InitPos.z) * 100;
@@ -132,15 +145,15 @@ void AProbotPawn::OnUpdate(ITnPhysicalItem** pITnPhysicalItemsArray, int numItem
                     // We need to update location and rotation of the root CarPawn (AirSim) component
                     // to make AirSim features work in this platform.
                     // This is a workaround to "attach" the root to the chassis, bc inherited component can't be moved.
-                    GetRootComponent()->SetWorldLocationAndRotation(Location + WorldToGlobalOffset, Rotation);
+                    GetRootComponent()->SetWorldLocationAndRotation(Location + WorldToGlobalOffset, Rotation, bSweep);
                 }
-                pSaticMesh->SetWorldLocation(Location + WorldToGlobalOffset);
-                pSaticMesh->SetWorldRotation(Rotation);
+                pSaticMesh->SetWorldLocation(Location + WorldToGlobalOffset, bSweep);
+                pSaticMesh->SetWorldRotation(Rotation, bSweep);
             }
             else {
                 // Handle the platform components which need to have relative transform, instead world transform
-                pSaticMesh->SetRelativeLocation(Location);
-                pSaticMesh->SetRelativeRotation(Rotation);
+                pSaticMesh->SetRelativeLocation(Location, bSweep);
+                pSaticMesh->SetRelativeRotation(Rotation, bSweep);
             }
         }
     }
@@ -161,7 +174,11 @@ void AProbotPawn::GetTerrainHeight(double x, double y, bool* isFound, double* pd
     *pdHeight = DTMSensor->GetTerrainHeight(x, y) / 100.0;
 }
 
-void AProbotPawn::GetTerrainMaterial(const STnVector3D& WorldPos, bool* bpMaterialFound, ITnMotionMaterial::STerrainMaterialType& TerrainMaterialType, double& moisture)
+void AProbotPawn::GetTerrainMaterial(const STnVector3D& WorldPos, bool* bpMaterialFound, ITnMotionMaterial::STerrainMaterialType& TerrainMaterialType)
+{
+}
+
+void AProbotPawn::GetTerrainMoisture(const STnVector3D& WorldPos, bool* bpMoistureFound, double& moisture)
 {
 }
 
