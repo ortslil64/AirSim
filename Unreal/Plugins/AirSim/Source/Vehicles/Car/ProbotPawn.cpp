@@ -2,6 +2,8 @@
 
 #include <Interfaces/IPluginManager.h>
 
+#include "MaterialMapping.h"
+
 #include <MotionCore/ITnMotionCore.h>
 #include <MotionCore/ITnPhysicalItem.h>
 #include <MotionCore/ITnVehicleMotionModel.h>
@@ -16,6 +18,19 @@ AProbotPawn::AProbotPawn()
     , VehicleSpeed(2)
     , SlowMoFactor(1)
 {
+    static ConstructorHelpers::FObjectFinder<UDataTable> material_mapping_finder(TEXT("DataTable'/Game/MaterialMappingTable.MaterialMappingTable'"));
+    if (material_mapping_finder.Succeeded()) {
+        material_mapping_table = material_mapping_finder.Object;
+        for (auto it : material_mapping_table->GetRowMap()) {
+            FMaterialMapping* data = (FMaterialMapping*)(it.Value);
+            MaterialMapping.Add(data->Material.GetAssetName(), TTuple<ETerrainType, ETerrainSubType>(data->TerrainType, data->TerrainSubType));
+        }
+    }
+    else {
+        UAirBlueprintLib::LogMessageString("Cannot find material mapping table. Use default.",
+                                           "",
+                                           LogDebugLevel::Informational);
+    }
 }
 
 void AProbotPawn::BeginPlay()
@@ -53,6 +68,7 @@ void AProbotPawn::BeginPlay()
         ITnMotionModel::MotionModelGenerateData generateData;
         generateData.collisionPolicy = E_COLLISION_POLICY::ECP_STOP_UPDATE_CYCLES;
         generateData.collisionEventsSource = E_COLLISION_EVENTS_SOURCE::ECE_EXTERNAL_EVENTS;
+        generateData.terrainMateialSource = E_TERRAIN_MATERIAL_SOURCE::ETMS_USE_TERRAIN_MATERIAL_LAYER;
         bool ret = MotionModel->Generate(TCHAR_TO_ANSI(*configFilePath), isReload, generateData);
         if (!ret) {
             UAirBlueprintLib::LogMessageString("Motion Model couldn't be generated", "", LogDebugLevel::Failure);
@@ -174,6 +190,27 @@ void AProbotPawn::GetTerrainHeight(double x, double y, bool* isFound, double* pd
 
 void AProbotPawn::GetTerrainMaterial(const STnVector3D& WorldPos, bool* bpMaterialFound, ITnMotionMaterial::STerrainMaterialType& TerrainMaterialType)
 {
+    *bpMaterialFound = false;
+    if (!material_mapping_table->IsValidLowLevelFast(false)) {
+        return;
+    }
+
+    FHitResult hitResult;
+    FVector pos = this->GetActorLocation();
+    FCollisionQueryParams queryParams;
+    queryParams.AddIgnoredActor(this);
+    bool isHitFound = this->GetWorld()->LineTraceSingleByChannel(hitResult, FVector(WorldPos.y * 100.0, WorldPos.x * 100.0, pos.Z), FVector(WorldPos.y * 100.0, WorldPos.x * 100.0, -HALF_WORLD_MAX), ECC_WorldStatic, queryParams);
+    if (isHitFound) {
+        UMaterialInterface* material = hitResult.Component->GetMaterial(0);
+        if (material->IsValidLowLevel()) {
+            const auto& foundVal = MaterialMapping.Find(material->GetName());
+            if (foundVal) {
+                TerrainMaterialType.Type = (ITnMotionMaterial::ETerrainType)(uint8)foundVal->Key;
+                TerrainMaterialType.SubType = (ITnMotionMaterial::ETerrainSubType)(uint8)foundVal->Value;
+                *bpMaterialFound = true;
+            }
+        }
+    }
 }
 
 void AProbotPawn::GetTerrainMoisture(const STnVector3D& WorldPos, bool* bpMoistureFound, double& moisture)

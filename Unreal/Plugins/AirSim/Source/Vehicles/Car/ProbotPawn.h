@@ -11,6 +11,8 @@
 
 #include "ProbotPawn.generated.h"
 
+class UDataTable;
+
 class UUnrealDTMSensor;
 class ITnPhysicalItem;
 class ITnVehicleMotionModel;
@@ -99,6 +101,11 @@ private:
     float SlowMoFactor;
     STnVector3D InitPos;
     double InitYaw;
+
+    UPROPERTY()
+    UDataTable* material_mapping_table;
+
+    TMap<FString, TTuple<ETerrainType, ETerrainSubType>> MaterialMapping;
 };
 
 #pragma warning(pop)
