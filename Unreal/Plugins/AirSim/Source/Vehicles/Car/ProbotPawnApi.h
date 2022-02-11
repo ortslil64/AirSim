@@ -25,10 +25,7 @@ public:
     virtual ~ProbotPawnApi();
 
 protected:
-    msr::airlib::CarApiBase::CarControls last_controls_;
     AProbotPawn* pawn_;
-    const msr::airlib::Kinematics::State* pawn_kinematics_;
-    msr::airlib::CarApiBase* vehicle_api_;
 
 private:
     UWheeledVehicleMovementComponent* movement_;

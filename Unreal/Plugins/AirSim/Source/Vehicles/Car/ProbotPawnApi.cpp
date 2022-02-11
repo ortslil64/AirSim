@@ -15,8 +15,6 @@ void ProbotPawnApi::updateMovement(const msr::airlib::CarApiBase::CarControls& c
 {
     last_controls_ = controls;
 
-    // MotionControlOutput controlOutput;
-
     ITnVehicleMotionModel::MotionControlInput controlInput;
 
     controlInput.validFields = static_cast<ITnVehicleMotionModel::EPossibleInputCommands>(ITnVehicleMotionModel::EPIC_STEERING | ITnVehicleMotionModel::EPIC_THROTTLE);
@@ -39,17 +37,14 @@ void ProbotPawnApi::updateMovement(const msr::airlib::CarApiBase::CarControls& c
 
 msr::airlib::CarApiBase::CarState ProbotPawnApi::getCarState() const
 {
-    //     msr::airlib::CarApiBase::CarState state(
-    //         movement_->GetForwardSpeed() / 100, //cm/s -> m/s
-    //         movement_->GetCurrentGear(),
-    //         movement_->GetEngineRotationSpeed(),
-    //         movement_->GetEngineMaxRotationSpeed(),
-    //         last_controls_.handbrake,
-    //         *pawn_kinematics_,
-    //         msr::airlib::ClockFactory::get()->nowNanos());
-    msr::airlib::CarApiBase::CarState state;
-    state.speed = pawn_->MotionModel->GetSpeed();
-    state.maxrpm = pawn_->MotionModel->GetRpmMax();
+    msr::airlib::CarApiBase::CarState state(
+        pawn_->MotionModel->GetSpeed(),
+        0 /*movement_->GetCurrentGear()*/,
+        0 /*movement_->GetEngineRotationSpeed()*/,
+        pawn_->MotionModel->GetRpmMax(),
+        false, /*last_controls_.handbrake,*/
+        *pawn_kinematics_,
+        msr::airlib::ClockFactory::get()->nowNanos());
 
     return state;
 }
