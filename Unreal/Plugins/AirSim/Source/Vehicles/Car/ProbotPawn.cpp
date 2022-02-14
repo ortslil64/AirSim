@@ -75,6 +75,8 @@ void AProbotPawn::BeginPlay()
         }
 
         InitPos = STnVector3D(GetActorLocation().X, GetActorLocation().Y, GetActorLocation().Z) / 100;
+        WorldToGlobalOffset = FVector(InitPos.y, InitPos.x, InitPos.z) * 100;
+
         InitYaw = (double)GetActorLocation().Rotation().Yaw;
         InitModel();
     }
@@ -153,21 +155,14 @@ void AProbotPawn::OnUpdate(ITnPhysicalItem** pITnPhysicalItemsArray, int numItem
 
             const bool bSweep = true;
             const char* tag = pITnPhysicalItem->GetTag();
-            if (eType == ITnPhysicalItem::EPIT_BODY) {
-                FVector WorldToGlobalOffset = FVector(InitPos.y, InitPos.x, InitPos.z) * 100;
-                if (FString(tag).Equals("CHASSIS")) {
-                    // We need to update location and rotation of the root CarPawn (AirSim) component
-                    // to make AirSim features work in this platform.
-                    // This is a workaround to "attach" the root to the chassis, bc inherited component can't be moved.
-                    GetRootComponent()->SetWorldLocationAndRotation(Location + WorldToGlobalOffset, Rotation, bSweep);
-                }
-                pSaticMesh->SetWorldLocation(Location + WorldToGlobalOffset, bSweep);
-                pSaticMesh->SetWorldRotation(Rotation, bSweep);
-            }
-            else {
-                // Handle the platform components which need to have relative transform, instead world transform
-                pSaticMesh->SetRelativeLocation(Location, bSweep);
-                pSaticMesh->SetRelativeRotation(Rotation, bSweep);
+            pSaticMesh->SetWorldLocation(Location + WorldToGlobalOffset, bSweep);
+            pSaticMesh->SetWorldRotation(Rotation, bSweep);
+
+            if (FString(tag).Equals("CHASSIS")) {
+                // We need to update location and rotation of the root CarPawn (AirSim) component
+                // to make AirSim features work in this platform.
+                // This is a workaround to "attach" the root to the chassis, bc inherited component can't be moved.
+                GetRootComponent()->SetWorldLocationAndRotation(Location + WorldToGlobalOffset, Rotation, bSweep);
             }
         }
     }

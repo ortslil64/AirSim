@@ -101,6 +101,7 @@ private:
     float SlowMoFactor;
     STnVector3D InitPos;
     double InitYaw;
+    FVector WorldToGlobalOffset;
 
     UPROPERTY()
     UDataTable* material_mapping_table;
