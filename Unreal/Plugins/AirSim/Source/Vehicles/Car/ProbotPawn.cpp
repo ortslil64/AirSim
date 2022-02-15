@@ -186,7 +186,7 @@ void AProbotPawn::GetTerrainHeight(double x, double y, bool* isFound, double* pd
 void AProbotPawn::GetTerrainMaterial(const STnVector3D& WorldPos, bool* bpMaterialFound, ITnMotionMaterial::STerrainMaterialType& TerrainMaterialType)
 {
     *bpMaterialFound = false;
-    if (!material_mapping_table->IsValidLowLevelFast(false)) {
+    if (!IsValid(material_mapping_table)) {
         return;
     }
 
