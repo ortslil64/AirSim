@@ -618,7 +618,6 @@ nav_msgs::msg::Odometry AirsimROSWrapper::get_odom_msg_from_kinematic_state(cons
     odom_msg.twist.twist.angular.z = kinematics_estimated.twist.angular.z();
 
     if (isENU_) {
-        // Seems to work, but why????
         tf2::Quaternion q(
             odom_msg.pose.pose.orientation.w,
             odom_msg.pose.pose.orientation.x,
