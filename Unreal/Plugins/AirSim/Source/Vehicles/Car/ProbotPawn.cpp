@@ -152,9 +152,6 @@ void AProbotPawn::OnUpdate(ITnPhysicalItem** pITnPhysicalItemsArray, int numItem
             FVector Location = FVector(ItemPosition.y, ItemPosition.x, ItemPosition.z);
             FRotator Rotation = FRotator(-ItemRotation.fPitch, ItemRotation.fYaw, ItemRotation.fRoll);
 
-            ITnPhysicalItem::EPhysicalItemType eType;
-            eType = pITnPhysicalItem->GetType();
-
             const bool bSweep = true;
             const char* tag = pITnPhysicalItem->GetTag();
             pSaticMesh->SetWorldLocation(Location + WorldToGlobalOffset, bSweep);
