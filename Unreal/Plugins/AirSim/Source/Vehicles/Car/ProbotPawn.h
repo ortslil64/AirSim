@@ -102,6 +102,7 @@ private:
     STnVector3D InitPos;
     double InitYaw;
     FVector WorldToGlobalOffset;
+    bool isMaterialMappingFound;
 
     UPROPERTY()
     UDataTable* material_mapping_table;

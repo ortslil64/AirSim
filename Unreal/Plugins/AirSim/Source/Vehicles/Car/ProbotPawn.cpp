@@ -17,14 +17,16 @@ AProbotPawn::AProbotPawn()
     , MotionModel(nullptr)
     , VehicleSpeed(2)
     , SlowMoFactor(1)
+    , isMaterialMappingFound(false)
 {
-    static ConstructorHelpers::FObjectFinder<UDataTable> material_mapping_finder(TEXT("DataTable'/Game/MaterialMappingTable.MaterialMappingTable'"));
+    static ConstructorHelpers::FObjectFinder<UDataTable> material_mapping_finder(TEXT("DataTable'/Game/MaterialMappingTable.MaterialMappingTable'"), LOAD_Quiet | LOAD_NoWarn);
     if (material_mapping_finder.Succeeded()) {
         material_mapping_table = material_mapping_finder.Object;
         for (auto it : material_mapping_table->GetRowMap()) {
             FMaterialMapping* data = (FMaterialMapping*)(it.Value);
             MaterialMapping.Add(data->Material.GetAssetName(), TTuple<ETerrainType, ETerrainSubType>(data->TerrainType, data->TerrainSubType));
         }
+        isMaterialMappingFound = true;
     }
     else {
         UAirBlueprintLib::LogMessageString("Cannot find material mapping table. Use default.",
@@ -186,7 +188,7 @@ void AProbotPawn::GetTerrainHeight(double x, double y, bool* isFound, double* pd
 void AProbotPawn::GetTerrainMaterial(const STnVector3D& WorldPos, bool* bpMaterialFound, ITnMotionMaterial::STerrainMaterialType& TerrainMaterialType)
 {
     *bpMaterialFound = false;
-    if (!IsValid(material_mapping_table)) {
+    if (!isMaterialMappingFound) {
         return;
     }
 
