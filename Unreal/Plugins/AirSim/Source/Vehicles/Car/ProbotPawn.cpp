@@ -18,6 +18,7 @@ AProbotPawn::AProbotPawn()
     , VehicleSpeed(2)
     , SlowMoFactor(1)
     , isMaterialMappingFound(false)
+    , bSweep(false)
 {
     static ConstructorHelpers::FObjectFinder<UDataTable> material_mapping_finder(TEXT("DataTable'/Game/MaterialMappingTable.MaterialMappingTable'"), LOAD_Quiet | LOAD_NoWarn);
     if (material_mapping_finder.Succeeded()) {
@@ -145,26 +146,43 @@ void AProbotPawn::OnUpdate(ITnPhysicalItem** pITnPhysicalItemsArray, int numItem
             UnrealAppItem* pUnrealItem = (UnrealAppItem*)pAppItem;
             UStaticMeshComponent* pSaticMesh = PlatformComponents[pUnrealItem->Index];
 
-            STnFVector3D ItemPosition = pITnPhysicalItem->GetGlobalPosition();
-            STnRotation ItemRotation = pITnPhysicalItem->GetGlobalRotation();
+            const char* tag = pITnPhysicalItem->GetTag();
+            ITnPhysicalItem::EPhysicalItemType eType = pITnPhysicalItem->GetType();
+            STnFVector3D ItemPosition;
+            STnRotation ItemRotation;
+
+            if (eType == ITnPhysicalItem::EPIT_WHEEL) {
+                ItemPosition = pITnPhysicalItem->GetRelativePosition();
+                ItemRotation = pITnPhysicalItem->GetRelativeRotation();
+            }
+            else {
+                ItemPosition = pITnPhysicalItem->GetGlobalPosition();
+                ItemRotation = pITnPhysicalItem->GetGlobalRotation();
+            }
 
             ItemPosition *= 100;
             FVector Location = FVector(ItemPosition.y, ItemPosition.x, ItemPosition.z);
-            FRotator Rotation = FRotator(-ItemRotation.fPitch, ItemRotation.fYaw, ItemRotation.fRoll);
+            FRotator Rotation = FRotator(ItemRotation.fPitch, ItemRotation.fYaw, ItemRotation.fRoll);
 
-            const bool bSweep = true;
-            const char* tag = pITnPhysicalItem->GetTag();
-            pSaticMesh->SetWorldLocation(Location + WorldToGlobalOffset, bSweep);
-            pSaticMesh->SetWorldRotation(Rotation, bSweep);
+            if (eType == ITnPhysicalItem::EPIT_WHEEL) {
+                pSaticMesh->SetRelativeLocation(Location, bSweep);
+                pSaticMesh->SetRelativeRotation(Rotation, bSweep);
+            }
+            else {
+                pSaticMesh->SetWorldLocation(Location + WorldToGlobalOffset, bSweep);
+                pSaticMesh->SetWorldRotation(Rotation, bSweep);
+            }
 
             if (FString(tag).Equals("CHASSIS")) {
                 // We need to update location and rotation of the root CarPawn (AirSim) component
                 // to make AirSim features work in this platform.
                 // This is a workaround to "attach" the root to the chassis, bc inherited component can't be moved.
-                GetRootComponent()->SetWorldLocationAndRotation(Location + WorldToGlobalOffset, Rotation, bSweep);
+                GetRootComponent()->SetWorldLocationAndRotation(Location + WorldToGlobalOffset, Rotation);
             }
         }
     }
+
+    bSweep = true;
 }
 
 bool AProbotPawn::OnCollision(ITnCollisionPointPhysicalItem** pITnCollisionPointsArray, int numItems)
@@ -213,8 +231,8 @@ void AProbotPawn::GetTerrainMoisture(const STnVector3D& WorldPos, bool* bpMoistu
 
 void AProbotPawn::updateHUDStrings()
 {
-    float speed_unit_factor = AirSimSettings::singleton().speed_unit_factor;
-    FText speed_unit_label = FText::FromString(FString(AirSimSettings::singleton().speed_unit_label.c_str()));
+    float speed_unit_factor = msr::airlib::AirSimSettings::singleton().speed_unit_factor;
+    FText speed_unit_label = FText::FromString(FString(msr::airlib::AirSimSettings::AirSimSettings::singleton().speed_unit_label.c_str()));
     float vel = FMath::Abs(MotionModel->GetSpeed());
     float vel_rounded = FMath::FloorToInt(vel * 10 * speed_unit_factor) / 10.0f;
 
@@ -239,6 +257,7 @@ void AProbotPawn::InitModel()
     else {
         UAirBlueprintLib::LogMessageString("Motion Model couldn't be initialized", "", LogDebugLevel::Failure);
     }
+    bSweep = false;
 }
 
 #undef LOCTEXT_NAMESPACE

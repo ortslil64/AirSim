@@ -8,6 +8,7 @@
 #include <MotionCore/ITnAppItem.h>
 #include <MotionCore/ITnMotionQueries.h>
 #include <MotionCore/ITnPhysicalItemBinder.h>
+#include <MaterialMapping.h>
 
 #include "ProbotPawn.generated.h"
 
@@ -103,6 +104,7 @@ private:
     double InitYaw;
     FVector WorldToGlobalOffset;
     bool isMaterialMappingFound;
+    bool bSweep;
 
     UPROPERTY()
     UDataTable* material_mapping_table;
