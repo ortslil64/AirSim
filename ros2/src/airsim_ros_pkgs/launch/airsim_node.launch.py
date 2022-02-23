@@ -26,10 +26,6 @@ def generate_launch_description():
     host = DeclareLaunchArgument(
         "host",
         default_value='localhost')
-    
-    world_frame_id = DeclareLaunchArgument(
-        "world_frame_id",
-        default_value='world_ned')
   
     airsim_node = Node(
             package='airsim_ros_pkgs',
@@ -38,12 +34,14 @@ def generate_launch_description():
             output='screen',
             parameters=[{
                 'is_vulkan': False,
+                'coordinate_system_enu': True,
+                'world_frame_id': "world_enu",
+                'odom_frame_id':  "odom",
                 'update_airsim_img_response_every_n_sec': 0.05,
                 'update_airsim_control_every_n_sec': 0.01,
                 'update_lidar_every_n_sec': 0.01,
                 'publish_clock': LaunchConfiguration('publish_clock'),
-                'host_ip': LaunchConfiguration('host'),
-                'world_frame_id': LaunchConfiguration('world_frame_id')
+                'host_ip': LaunchConfiguration('host')
             }])
 
     static_transforms = IncludeLaunchDescription(
@@ -60,7 +58,6 @@ def generate_launch_description():
     ld.add_action(publish_clock)
     ld.add_action(is_vulkan)
     ld.add_action(host)
-    ld.add_action(world_frame_id)
   
     ld.add_action(static_transforms)
     ld.add_action(airsim_node)
