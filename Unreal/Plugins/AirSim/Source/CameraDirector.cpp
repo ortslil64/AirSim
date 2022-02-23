@@ -14,7 +14,7 @@ ACameraDirector::ACameraDirector()
     SpringArm->bEnableCameraLag = false;
     SpringArm->bEnableCameraRotationLag = false;
     SpringArm->CameraRotationLagSpeed = 10.0f;
-    SpringArm->bInheritPitch = true;
+    SpringArm->bInheritPitch = false;
     SpringArm->bInheritYaw = true;
     SpringArm->bInheritRoll = true;
 }
