@@ -150,7 +150,7 @@ double UUnrealDTMSensor::GetTerrainHeight(double x, double y)
         FVector startPos;
         startPos.X = x;
         startPos.Y = y;
-        startPos.Z = HALF_WORLD_MAX;
+        startPos.Z = GetComponentLocation().Z;
 
         FVector endPos = startPos;
         endPos.Z = -HALF_WORLD_MAX;
