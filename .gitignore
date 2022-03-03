@@ -385,6 +385,19 @@ ros/src/CMakeLists.txt
 ros2/install/
 ros2/log/
 ros2/src/log
+ros2/src/airsim_teleop/
+ros2/src/cape_ros2/
+ros2/src/corner_lsd/
+ros2/src/instinct/
+ros2/src/object_localizer/
+ros2/src/seeker_launcher/
+ros2/src/seeker_plugin/
+ros2/src/simple_controller/
+ros2/src/ssem/
+ros2/src/state_publisher/
+ros2/src/teleop_tools/
+ros2/src/twist_mux/
+ros2/src/.vscode/
 
 # docs
 docs/README.md
