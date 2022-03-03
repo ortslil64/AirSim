@@ -2,8 +2,6 @@
 #include "common/AirSimSettings.hpp"
 #include <tf2_sensor_msgs/tf2_sensor_msgs.h>
 
-#include <math.h>
-
 using namespace std::placeholders;
 
 constexpr char AirsimROSWrapper::CAM_YML_NAME[];
@@ -618,34 +616,28 @@ nav_msgs::msg::Odometry AirsimROSWrapper::get_odom_msg_from_kinematic_state(cons
     odom_msg.twist.twist.angular.x = kinematics_estimated.twist.angular.x();
     odom_msg.twist.twist.angular.y = kinematics_estimated.twist.angular.y();
     odom_msg.twist.twist.angular.z = kinematics_estimated.twist.angular.z();
-    
 
     if (isENU_) {
-        // Seems to work, but why????
         tf2::Quaternion q(
-        odom_msg.pose.pose.orientation.w,
-        odom_msg.pose.pose.orientation.x,
-        odom_msg.pose.pose.orientation.y,
-        odom_msg.pose.pose.orientation.z);
+            odom_msg.pose.pose.orientation.w,
+            odom_msg.pose.pose.orientation.x,
+            odom_msg.pose.pose.orientation.y,
+            odom_msg.pose.pose.orientation.z);
         tf2::Matrix3x3 m(q);
         double roll, pitch, yaw;
         m.getRPY(roll, pitch, yaw);
-        // RCLCPP_INFO(nh_->get_logger(), "roll, pitch, yaw - %f, %f, %f", (roll, pitch, yaw));
-        pitch = pitch + M_PI/2;
-        yaw = yaw + M_PI/2;
+        pitch = pitch + M_PI / 2;
+        yaw = yaw + M_PI / 2;
         q.setRPY(roll, pitch, yaw);
-        q.normalize();  
+        q.normalize();
         geometry_msgs::msg::Quaternion quat_msg;
-        // tf2::convert(quat_msg , q);
         quat_msg = tf2::toMsg(q);
-        // RCLCPP_INFO(nh_->get_logger(), "1) roll, pitch, yaw - %f, %f, %f", ( odom_msg.pose.pose.orientation.x,  odom_msg.pose.pose.orientation.y,  odom_msg.pose.pose.orientation.z));
         odom_msg.pose.pose.orientation = quat_msg;
-        // RCLCPP_INFO(nh_->get_logger(), "2) roll, pitch, yaw - %f, %f, %f", ( odom_msg.pose.pose.orientation.x,  odom_msg.pose.pose.orientation.y,  odom_msg.pose.pose.orientation.z));
-        
+
         std::swap(odom_msg.pose.pose.position.x, odom_msg.pose.pose.position.y);
         odom_msg.pose.pose.position.z = -odom_msg.pose.pose.position.z;
         std::swap(odom_msg.pose.pose.orientation.x, odom_msg.pose.pose.orientation.y);
-        odom_msg.pose.pose.orientation.z = -odom_msg.pose.pose.orientation.z ;
+        odom_msg.pose.pose.orientation.z = -odom_msg.pose.pose.orientation.z;
         std::swap(odom_msg.twist.twist.linear.x, odom_msg.twist.twist.linear.y);
         odom_msg.twist.twist.linear.z = -odom_msg.twist.twist.linear.z;
         std::swap(odom_msg.twist.twist.angular.x, odom_msg.twist.twist.angular.y);
@@ -1244,33 +1236,26 @@ void AirsimROSWrapper::set_nans_to_zeros_in_pose(const VehicleSetting& vehicle_s
 void AirsimROSWrapper::convert_tf_msg_to_enu(geometry_msgs::msg::TransformStamped& tf_msg)
 {
     tf2::Quaternion q(
-    tf_msg.transform.rotation.x,
-    tf_msg.transform.rotation.y,
-    tf_msg.transform.rotation.z,
-    tf_msg.transform.rotation.w);
+        tf_msg.transform.rotation.x,
+        tf_msg.transform.rotation.y,
+        tf_msg.transform.rotation.z,
+        tf_msg.transform.rotation.w);
     tf2::Matrix3x3 m(q);
     double roll, pitch, yaw;
     m.getRPY(roll, pitch, yaw);
-    // RCLCPP_INFO(nh_->get_logger(), "roll, pitch, yaw - %f, %f, %f", (roll, pitch, yaw));
-    //pitch = pitch + 1.57;
     roll = roll - M_PI;
-    // yaw = yaw + 1.57;
     q.setRPY(roll, pitch, yaw);
-    q.normalize();  
+    q.normalize();
 
     tf2::Matrix3x3 m2(q);
     m2.getRPY(roll, pitch, yaw);
-    yaw = yaw + M_PI/2;
+    yaw = yaw + M_PI / 2;
     q.setRPY(roll, pitch, yaw);
-    q.normalize();  
+    q.normalize();
 
     geometry_msgs::msg::Quaternion quat_msg;
-    // tf2::convert(quat_msg , q);
     quat_msg = tf2::toMsg(q);
-    // RCLCPP_INFO(nh_->get_logger(), "1) roll, pitch, yaw - %f, %f, %f", ( odom_msg.pose.pose.orientation.x,  odom_msg.pose.pose.orientation.y,  odom_msg.pose.pose.orientation.z));
     tf_msg.transform.rotation = quat_msg;
-    // RCLCPP_INFO(nh_->get_logger(), "2) roll, pitch, yaw - %f, %f, %f", ( odom_msg.pose.pose.orientation.x,  odom_msg.pose.pose.orientation.y,  odom_msg.pose.pose.orientation.z));
-        
 
     std::swap(tf_msg.transform.translation.x, tf_msg.transform.translation.y);
     std::swap(tf_msg.transform.rotation.x, tf_msg.transform.rotation.y);

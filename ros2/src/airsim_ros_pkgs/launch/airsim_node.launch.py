@@ -34,9 +34,6 @@ def generate_launch_description():
             output='screen',
             parameters=[{
                 'is_vulkan': False,
-                'coordinate_system_enu': True,
-                'world_frame_id': "world_enu",
-                'odom_frame_id':  "odom",
                 'update_airsim_img_response_every_n_sec': 0.05,
                 'update_airsim_control_every_n_sec': 0.01,
                 'update_lidar_every_n_sec': 0.01,
